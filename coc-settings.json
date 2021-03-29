@@ -72,6 +72,9 @@
         "bing",
         "youdao"
     ],
-    "translator.window.enableBorder": true
+    "translator.window.enableBorder": true,
 
+    "explorer.width": 40,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.floating.position": "center-top"
 }
