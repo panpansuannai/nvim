@@ -21,8 +21,11 @@ Plug 'tpope/vim-surround'
 Plug 'voldikss/vim-floaterm'
 
 Plug 'metakirby5/codi.vim'
+
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " 
+Plug 'Yggdroot/indentLine'
+
 call plug#end()
 
 
