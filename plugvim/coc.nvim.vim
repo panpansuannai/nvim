@@ -59,7 +59,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
 " coc-terminal
-nmap <leader>te <Plug>(coc-terminal-toggle)
+" nmap <leader>te <Plug>(coc-terminal-toggle)
 
 " coc-explorer
 nnoremap <leader>ee :CocCommand explorer<cr>

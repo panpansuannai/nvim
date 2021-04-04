@@ -5,7 +5,7 @@ filetype off
 syntax on
 
 " enable mouse
-set mouse =a
+set mouse =n
 
 " line number
 set number numberwidth =6
@@ -23,7 +23,7 @@ set showmode
 set showmode
 
 set encoding =utf-8
-set t_Co =256
+" set t_Co =256
 set autoindent
 set shiftwidth =2
 set tabstop =2
@@ -37,9 +37,11 @@ set hlsearch
 set cmdheight=1
 
 " colors
-"
 colorscheme gruvbox
-highlight Normal ctermbg=none guibg=NONE
+set termguicolors
+" colorscheme industry
+" colorscheme OceanicNext
+highlight Normal ctermbg=none 
 
 " define key mapping {
     let g:mapleader =' '
@@ -115,10 +117,10 @@ highlight Normal ctermbg=none guibg=NONE
     nmap <leader>S :source $MYVIMRC<cr>
 
     " edit vimrc
-    nnoremap <leader>ev :vsp $MYVIMRC<cr>
-    nnoremap <leader>em :vsp ~/.config/nvim/mymap.vim<cr>
-    nnoremap <leader>es :vsp ~/.config/nvim/plugvim/vimspector.vim<cr>
-    nnoremap <leader>ea :vsp ~/.config/nvim/plugvim/vim-airline.vim<cr>
+    nnoremap <leader>ev :edit $MYVIMRC<cr>
+    nnoremap <leader>em :edit ~/.config/nvim/mymap.vim<cr>
+    nnoremap <leader>es :edit ~/.config/nvim/plugvim/vimspector.vim<cr>
+    nnoremap <leader>ea :edit ~/.config/nvim/plugvim/vim-airline.vim<cr>
     nnoremap <leader>qq :wqa!<cr>
 
 " }

@@ -1,12 +1,9 @@
 " vundle plugin manager
 call plug#begin()
 
-Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-" Plug 'jiangmiao/auto-pairs'
-"
-Plug 'vim-airline/vim-airline'
 
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'neoclide/coc.nvim'
@@ -14,13 +11,18 @@ Plug 'neoclide/coc.nvim'
 Plug 'neoclide/coc-pairs'
 
 Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c'}
-" Plug 'w0rp/ale'
+
 Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
 
+Plug 'voldikss/vim-floaterm'
+
+Plug 'metakirby5/codi.vim'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" 
 call plug#end()
 
 

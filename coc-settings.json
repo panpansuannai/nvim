@@ -75,6 +75,10 @@
     "translator.window.enableBorder": true,
 
     "explorer.width": 40,
+    "explorer.filename.colored.enable": true,
     "explorer.icon.enableNerdfont": true,
-    "explorer.floating.position": "center-top"
+    "explorer.floating.position": "center-top",
+    "explorer.keyMappings.global": {
+      "u" : ["wait", "gotoParent"]
+    }
 }
