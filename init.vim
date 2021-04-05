@@ -14,8 +14,6 @@ Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enab
 
 Plug 'morhetz/gruvbox'
 
-Plug 'junegunn/fzf.vim'
-
 Plug 'tpope/vim-surround'
 
 Plug 'voldikss/vim-floaterm'
