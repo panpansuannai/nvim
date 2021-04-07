@@ -20,9 +20,7 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'metakirby5/codi.vim'
 
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-" 
-Plug 'Yggdroot/indentLine'
+Plug 'lervag/vimtex'
 
 call plug#end()
 

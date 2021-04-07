@@ -5,7 +5,7 @@ filetype off
 syntax on
 
 " enable mouse
-set mouse =n
+set mouse=""
 
 " line number
 set number numberwidth =6
@@ -41,7 +41,7 @@ colorscheme gruvbox
 set termguicolors
 " colorscheme industry
 " colorscheme OceanicNext
-highlight Normal ctermbg=none 
+highlight Normal guibg=none ctermbg=none 
 
 " define key mapping {
     let g:mapleader =' '
@@ -95,8 +95,6 @@ highlight Normal ctermbg=none
     " insert mode
     inoremap <silent> <C-l> <esc>A
     inoremap <silent> <C-h> <Esc>I
-    inoremap <silent> <C-o> <Esc>o
-    inoremap <silent> <C-O> <Esc>O
     inoremap <silent> <C-d> <Esc>dd
 
     " window
@@ -108,6 +106,10 @@ highlight Normal ctermbg=none
     nnoremap <silent> <leader>wk <C-w>k
     nnoremap <silent> <leader>wc <C-w>c
     nnoremap <silent> <leader>wo <C-w>o
+    nnoremap <silent> <leader>w= <C-w>+
+    nnoremap <silent> <leader>w- <C-w>-
+    nnoremap <silent> <leader>w. <C-w>>
+    nnoremap <silent> <leader>w, <C-w><
 
     " misc
     nmap <C-l> :nohlsearch<cr>
