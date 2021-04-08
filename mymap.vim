@@ -5,7 +5,7 @@ filetype off
 syntax on
 
 " enable mouse
-set mouse=""
+set mouse=nv
 
 " line number
 set number numberwidth =6
@@ -111,7 +111,20 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <silent> <leader>w. <C-w>>
     nnoremap <silent> <leader>w, <C-w><
 
-    " misc
+    vnoremap <silent> <leader>wv <C-w>v<C-w>l
+    vnoremap <silent> <leader>ws <C-w>s<C-w>j
+    vnoremap <silent> <leader>wh <C-w>h
+    vnoremap <silent> <leader>wl <C-w>l
+    vnoremap <silent> <leader>wj <C-w>j
+    vnoremap <silent> <leader>wk <C-w>k
+    vnoremap <silent> <leader>wc <C-w>c
+    vnoremap <silent> <leader>wo <C-w>o
+    vnoremap <silent> <leader>w= <C-w>+
+    vnoremap <silent> <leader>w- <C-w>-
+    vnoremap <silent> <leader>w. <C-w>>
+    vnoremap <silent> <leader>w, <C-w><
+
+    v misc
     nmap <C-l> :nohlsearch<cr>
     nmap <leader>ss :w<cr>
     nmap <leader>s :w<cr>
