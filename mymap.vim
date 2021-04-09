@@ -154,4 +154,7 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <leader>qq :wqa!<cr>
 " }}}
 
+" help me ajust to use 'jk' to escapy insert mode
+inoremap <c-[> [
+
 " }
