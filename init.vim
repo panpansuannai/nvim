@@ -12,7 +12,7 @@ Plug 'neoclide/coc-pairs'
 
 Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c'}
 
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 
 Plug 'tpope/vim-surround'
 

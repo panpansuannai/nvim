@@ -1,5 +1,6 @@
 " 自定义映射
 
+set runtimepath+=~/.config/nvim/colors
 set nocompatible
 filetype off 
 syntax on
@@ -44,17 +45,29 @@ set termguicolors
 highlight Normal guibg=none ctermbg=none 
 
 " define key mapping {
+" {{{
     let g:mapleader =' '
     
+    " open current buffer in a new tab
+    function! OpenBufInNewTab()
+      let l:nowbuf = bufnr()
+      let l:line = line(".")
+      :tabnew
+      execute "buf". nowbuf
+      call cursor(line, 0)
+      unlet nowbuf
+    endfunction
+
     " tab 
-    nnoremap <leader>tt :tabnew<cr>
-    nnoremap <leader>te :tabe<cr>
-    nnoremap <leader>tc :tabclose<cr>
-    nnoremap <leader>tl :tabnext<cr>
-    nnoremap <leader>th :tabprevious<cr>
-    nnoremap <leader>to :tabonly<cr>
-    nnoremap <leader>tj :tablast<cr>
-    nnoremap <leader>tk :tabfirst<cr>
+    nnoremap <silent> <leader>tt :tabnew<cr>
+    nnoremap <silent> <leader>te :tabe<cr>
+    nnoremap <silent> <leader>tc :tabclose<cr>
+    nnoremap <silent> <leader>tl :tabnext<cr>
+    nnoremap <silent> <leader>th :tabprevious<cr>
+    nnoremap <silent> <leader>to :tabonly<cr>
+    nnoremap <silent> <leader>tj :tablast<cr>
+    nnoremap <silent> <leader>tk :tabfirst<cr>
+    nnoremap <silent> <leader>ty :call OpenBufInNewTab()<cr>
 
     "paste
     nnoremap <leader>p" ""p
@@ -86,11 +99,11 @@ highlight Normal guibg=none ctermbg=none
         endwhile
     endfun
 
-    nnoremap <leader>bo :call g:DeleteAllBuffersInWindow()<cr>
-    nnoremap <leader>bb :buffers<cr>
-    nnoremap <leader>bc :bd<cr>
-    nnoremap <leader>bl :bn<cr>
-    nnoremap <leader>bh :bp<cr>
+    nnoremap <silent> <leader>bo :call g:DeleteAllBuffersInWindow()<cr>
+    nnoremap <silent> <leader>bb :buffers<cr>
+    nnoremap <silent> <leader>bc :bd<cr>
+    nnoremap <silent> <leader>bl :bn<cr>
+    nnoremap <silent> <leader>bh :bp<cr>
 
     " insert mode
     inoremap <silent> <C-l> <esc>A
@@ -124,12 +137,14 @@ highlight Normal guibg=none ctermbg=none
     vnoremap <silent> <leader>w. <C-w>>
     vnoremap <silent> <leader>w, <C-w><
 
-    v misc
-    nmap <C-l> :nohlsearch<cr>
+    " misc
+    nmap <silent> <C-l> :nohlsearch<cr>
     nmap <leader>ss :w<cr>
     nmap <leader>s :w<cr>
     nmap <leader>sw :w !sudo tee%<cr>
-    nmap <leader>S :source $MYVIMRC<cr>
+    nmap <silent><leader>S :source $MYVIMRC<cr>
+    inoremap jk <esc>
+    autocmd FileType vim setlocal foldmethod=marker
 
     " edit vimrc
     nnoremap <leader>ev :edit $MYVIMRC<cr>
@@ -137,5 +152,6 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <leader>es :edit ~/.config/nvim/plugvim/vimspector.vim<cr>
     nnoremap <leader>ea :edit ~/.config/nvim/plugvim/vim-airline.vim<cr>
     nnoremap <leader>qq :wqa!<cr>
+" }}}
 
 " }

@@ -1,14 +1,14 @@
 let g:spector_json_path = "~/.config/nvim/plugged/vimspector/vimspector.json"
+
+" move .vimspactor.json to current directory
 function! g:Link_spector_json()
-    let s:temp = "cp ".g:spector_json_path." ./.vimspector.json"
-    let a = system("ls".s:temp)
-    if a 
-        echo "Had configure file"
+    let l:temp = "cp ".g:spector_json_path." ./.vimspector.json"
+    let l:exist = system("ls .vimspector.json")
+    if l:exist
+        echom "Had vimspector configure file"
         return 
     endif
-    let a = system(s:temp)
-    echo "done"
-    unlet s:temp
+    execute system(l:temp)
 endfunction
 
 " create a soft link of vimspector.json in current directory
