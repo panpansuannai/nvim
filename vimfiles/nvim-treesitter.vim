@@ -3,6 +3,9 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {'c', 'cpp','json', 'lua', 'python', 'bash'},
   highlight = {
     enable = true,
+  },
+  indent = {
+    enable = false,
   }
 }
 -- integrate with rainbow
