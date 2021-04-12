@@ -81,7 +81,7 @@
     ],
     "translator.window.enableBorder": true,
 
-    "explorer.width": 40,
+    "explorer.width": 30,
     "explorer.filename.colored.enable": true,
     "explorer.icon.enableNerdfont": true,
     "explorer.floating.position": "center-top",

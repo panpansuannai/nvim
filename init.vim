@@ -22,6 +22,7 @@ Plug 'metakirby5/codi.vim'
 
 Plug 'lervag/vimtex'
 
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 

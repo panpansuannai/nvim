@@ -105,11 +105,6 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <silent> <leader>bl :bn<cr>
     nnoremap <silent> <leader>bh :bp<cr>
 
-    " insert mode
-    inoremap <silent> <C-l> <esc>A
-    inoremap <silent> <C-h> <Esc>I
-    inoremap <silent> <C-d> <Esc>dd
-
     " window
     nnoremap <silent> <leader>wv <C-w>v<C-w>l
     nnoremap <silent> <leader>ws <C-w>s<C-w>j
@@ -136,6 +131,14 @@ highlight Normal guibg=none ctermbg=none
     vnoremap <silent> <leader>w- <C-w>-
     vnoremap <silent> <leader>w. <C-w>>
     vnoremap <silent> <leader>w, <C-w><
+
+    " improve editing
+    " <leader>J in n mode to split the current line 
+    nnoremap <leader>J  i<cr><esc>
+    inoremap <silent> <C-l> <esc>A
+    inoremap <silent> <C-h> <Esc>I
+    inoremap <silent> <C-d> <Esc>dd
+
 
     " misc
     nmap <silent> <C-l> :nohlsearch<cr>
