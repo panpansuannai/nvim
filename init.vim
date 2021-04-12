@@ -1,4 +1,10 @@
 " vundle plugin manager
+set runtimepath+=~/.config/nvim
+
+" my vim plugin files directory
+let s:vimfilespath='~/.config/nvim/vimfiles/'
+
+" use vim-plug
 call plug#begin()
 
 Plug 'preservim/nerdcommenter'
@@ -30,14 +36,11 @@ call plug#end()
 source ~/.config/nvim/mymap.vim
 
 " source plugin vimrc
-let g:plugin_dir = "~/.config/nvim/plugvim/"
-let s:vimrc_list = systemlist("ls ".g:plugin_dir)
+let s:vimrc_list = systemlist("ls ".s:vimfilespath)
 
 for a in s:vimrc_list
-    let s:temp = g:plugin_dir.a
+    let s:temp = s:vimfilespath.a
     exe "source ".s:temp
     unlet s:temp
 endfor
-
-unlet s:vimrc_list
 

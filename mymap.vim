@@ -1,6 +1,5 @@
 " 自定义映射
 
-set runtimepath+=~/.config/nvim/colors
 set nocompatible
 filetype off 
 syntax on

@@ -1,5 +1,8 @@
+" edit config
+nnoremap <leader>ec :edit ~/.config/nvim/vimfiles/coc.nvim.vim<cr>
+
 let g:coc_suggest_disable = 0 
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets', 'coc-python', 'coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex']
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets', 'coc-python', 'coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex', 'coc-lua']
 
 
 
@@ -37,8 +40,6 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" edit config
-nnoremap <leader>ec :vsp ~/.config/nvim/plugvim/coc.nvim.vim<cr>
 
 
 nmap <Tab> :CocList <cr>
