@@ -1,5 +1,6 @@
 {
     "list.indicator": ">",
+    "highlight.colors.enable":false,
     "list.nextKeymap": "<C-j>",
     "list.previousKeymap": "<C-k>",
     "coc.preferences.floatActions": true,

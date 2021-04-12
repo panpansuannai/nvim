@@ -129,6 +129,11 @@ gls.mid[1] = {
   }
 }
 ]]--
+gls.mid[1] = {
+  FileTypeName = {
+    provider = 'FileTypeName',
+  }
+}
 gls.right[1] = {
   FileEncode = {
     provider = 'FileEncode',

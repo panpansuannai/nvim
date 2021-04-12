@@ -31,7 +31,12 @@ Plug 'lervag/vimtex'               " latex plugin
 Plug 'Yggdroot/indentLine'         "
 
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}  " statuline
+
 Plug 'kyazdani42/nvim-web-devicons'                  " use icon in galaxyline 
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}   " tree-sitter
+
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy plugin
 call plug#end()
 
 

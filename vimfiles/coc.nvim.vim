@@ -40,12 +40,10 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-
-
 nmap <Tab> :CocList <cr>
 
-nmap <leader>f  <Plug>(coc-format-selected)
-xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>cf  <Plug>(coc-format-selected)
+vmap <leader>cf  <Plug>(coc-format-selected)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
