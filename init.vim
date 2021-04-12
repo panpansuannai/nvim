@@ -7,28 +7,31 @@ let s:vimfilespath='~/.config/nvim/vimfiles/'
 " use vim-plug
 call plug#begin()
 
-Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdcommenter'     " comment plugin
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim'           " language client
 
-Plug 'neoclide/coc-pairs'
+Plug 'neoclide/coc-pairs'          " auto pair
 
-Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c'}
+Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c'}    " debugger
 
 "Plug 'morhetz/gruvbox'
 
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'          " 
 
-Plug 'voldikss/vim-floaterm'
+Plug 'voldikss/vim-floaterm'       " call a float window terminal
 
-Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim'         " 
 
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex'               " latex plugin
 
-Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'         "
+
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}  " statuline
+Plug 'kyazdani42/nvim-web-devicons'                  " use icon in galaxyline 
 call plug#end()
 
 
