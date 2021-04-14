@@ -8,6 +8,7 @@ gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 colors.bg = colors.darkblue
 
 local icons = require('nvim-web-devicons')
+
 gls.left[1] = {
   RainbowRed = {
     provider = function() return '▊ ' end,
@@ -129,9 +130,21 @@ gls.mid[1] = {
   }
 }
 ]]--
+local typehlname = colors.orange
 gls.mid[1] = {
-  FileTypeName = {
-    provider = 'FileTypeName',
+  MyFileType = {
+    provider = function ()
+        local filetype = vim.bo.filetype
+        local data
+        data, typehlname = icons.get_icon(filetype, "default_icon")
+        if #filetype > 0 and  data
+        then
+            return data..'['..filetype..']'
+        else
+            return ''
+        end
+    end,
+    highlight = {typehlname}
   }
 }
 gls.right[1] = {

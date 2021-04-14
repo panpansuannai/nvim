@@ -24,11 +24,13 @@ set showmode
 
 set encoding =utf-8
 " set t_Co =256
+"
+" indent 
+set expandtab
 set autoindent
 set shiftwidth =2
 set tabstop =2
 set softtabstop =2
-set expandtab
 set cursorline
 set wrap
 set hlsearch
