@@ -1,6 +1,7 @@
 local gl = require('galaxyline')
 local colors = require('galaxyline.theme').default
 local condition = require('galaxyline.condition')
+local extensions = require('galaxyline.provider_extensions')
 local gls = gl.section
 gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 
@@ -113,6 +114,12 @@ gls.left[11] = {
     highlight = {colors.blue,colors.bg},
   }
 }
+gls.left[12] = {
+  Coc = {
+    provider = extensions.coc_status,
+    highlight = {colors.green, colors.bg}
+  }
+}
 
 --[[
 gls.mid[1] = {
@@ -147,6 +154,8 @@ gls.mid[1] = {
     highlight = {typehlname}
   }
 }
+
+
 gls.right[1] = {
   FileEncode = {
     provider = 'FileEncode',
