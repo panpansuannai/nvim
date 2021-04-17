@@ -1,8 +1,8 @@
-" 自定义映射
-
 set nocompatible
 filetype off 
 syntax on
+
+set updatetime=100
 
 " enable mouse
 set mouse=nv
@@ -115,10 +115,10 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <silent> <leader>wk <C-w>k
     nnoremap <silent> <leader>wc <C-w>c
     nnoremap <silent> <leader>wo <C-w>o
-    nnoremap <silent> <leader>w= <C-w>+
-    nnoremap <silent> <leader>w- <C-w>-
-    nnoremap <silent> <leader>w. <C-w>>
-    nnoremap <silent> <leader>w, <C-w><
+    nnoremap <silent> <leader>w= 10<C-w>+
+    nnoremap <silent> <leader>w- 10<C-w>-
+    nnoremap <silent> <leader>w. 10<C-w><
+    nnoremap <silent> <leader>w, 10<C-w>>
 
     vnoremap <silent> <leader>wv <C-w>v<C-w>l
     vnoremap <silent> <leader>ws <C-w>s<C-w>j

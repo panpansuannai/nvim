@@ -41,7 +41,9 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy plugin
 Plug 'notomo/gesture.nvim'        " support gesture
 
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
-Plug 'AckslD/nvim-whichkey-setup.lua'
+" Plug 'AckslD/nvim-whichkey-setup.lua'
+"
+Plug 'airblade/vim-gitgutter'     " show which line has changed
 call plug#end()
 
 

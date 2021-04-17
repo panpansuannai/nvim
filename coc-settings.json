@@ -58,8 +58,8 @@
     "diagnostic.highlightOffset": 10,
     "diagnostic.enable":true,
     "diagnostic.showUnused": true,
-    "diagnostic.errorSign": "🗙 ",
-    "diagnostic.warningSign": "🞥 ",
+    "diagnostic.errorSign": "⛌",
+    "diagnostic.warningSign": "⟁ ",
     "diagnostic.hintSign": "›",
     "diagnostic.infoSign": "›",
     "diagnostic.enableSign": true,
@@ -89,5 +89,9 @@
     "explorer.floating.position": "center-top",
     "explorer.keyMappings.global": {
       "u" : ["wait", "gotoParent"]
-    }
+    },
+    "rainbow-fart.enabled": true,
+    "rainbow-fart.locale": ["zh"],
+    "rainbow-fart.ffplay": "ffplay",
+    "rainbow-fart.disable-voice-packages": []
 }

@@ -42,8 +42,14 @@ omap ac <Plug>(coc-classobj-a)
 
 nmap <Tab> :CocList <cr>
 
+" format
 nmap <leader>cf  <Plug>(coc-format-selected)
 vmap <leader>cf  <Plug>(coc-format-selected)
+" float window
+nmap <leader>cwj <Plug>(coc-float-jump)
+nmap <leader>cwh <Plug>(coc-float-hide)
+" rename 
+nmap <leader>cr <Plug>(coc-rename)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
@@ -57,3 +63,4 @@ nnoremap <leader>ee :CocCommand explorer<cr>
 
 " coc-translator
 nmap <leader>tr <Plug>(coc-translator-p)
+vmap <leader>tr <Plug>(coc-translator-pv)
