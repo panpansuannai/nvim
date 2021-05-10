@@ -8,10 +8,6 @@ let s:vimfilespath='~/.config/nvim/vimfiles/'
 call plug#begin()
 
 Plug 'preservim/nerdcommenter'     " comment plugin
-
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-
 Plug 'neoclide/coc.nvim'           " language client
 
 Plug 'neoclide/coc-pairs'          " auto pair
@@ -28,24 +24,21 @@ Plug 'metakirby5/codi.vim'         "
 
 Plug 'lervag/vimtex'               " latex plugin
 
-Plug 'Yggdroot/indentLine'         "
+Plug 'Yggdroot/indentLine'         " show indent
 
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}  " statuline
 
 Plug 'kyazdani42/nvim-web-devicons'                  " use icon in galaxyline 
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}   " tree-sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}   " tree-sitter highlight
 
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy plugin
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy search plugin
 
 "Plug 'notomo/gesture.nvim'        " support gesture
 
-Plug 'itchyny/vim-cursorword'
+Plug 'itchyny/vim-cursorword'      " outstand the word at cursor
 
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
-" Plug 'AckslD/nvim-whichkey-setup.lua'
-"
-" Plug 'airblade/vim-gitgutter'     " show which line has changed
 call plug#end()
 
 
