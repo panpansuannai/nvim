@@ -85,6 +85,9 @@ let s:is_dark=(&background == 'dark')
 " setup palette dictionary
 let s:gb = {}
 
+" my color
+let s:black = ['#221b29', 034]
+
 " fill it with absolute colors
 let s:gb.dark0_hard  = ['#1d2021', 234]     " 29-32-33
 let s:gb.dark0       = ['#282828', 235]     " 40-40-40
@@ -475,7 +478,7 @@ endif
 
 if version >= 700
   " Screen line that the cursor is
-  call s:HL('CursorLine',   s:none, s:bg1 , s:italic)
+  call s:HL('CursorLine',   s:none, s:black, s:italic)
 
   " Screen column that the cursor is
   hi! link CursorColumn CursorLine
