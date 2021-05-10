@@ -38,12 +38,14 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}   " tree-sitter
 
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy plugin
 
-Plug 'notomo/gesture.nvim'        " support gesture
+"Plug 'notomo/gesture.nvim'        " support gesture
+
+Plug 'itchyny/vim-cursorword'
 
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
 " Plug 'AckslD/nvim-whichkey-setup.lua'
 "
-Plug 'airblade/vim-gitgutter'     " show which line has changed
+" Plug 'airblade/vim-gitgutter'     " show which line has changed
 call plug#end()
 
 
@@ -52,7 +54,6 @@ source ~/.config/nvim/mymap.vim
 
 " source plugin vimrc
 let s:vimrc_list = systemlist("ls ".s:vimfilespath)
-
 for a in s:vimrc_list
     let s:temp = s:vimfilespath.a
     exe "source ".s:temp
