@@ -156,6 +156,9 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <leader>es :edit ~/.config/nvim/plugvim/vimspector.vim<cr>
     nnoremap <leader>ea :edit ~/.config/nvim/plugvim/vim-airline.vim<cr>
     nnoremap <leader>qq :wqa!<cr>
+
+    " excute current line
+    nnoremap <C-e> V"ay:!<C-r>a<cr><cr>
 " }}}
 
 " help me ajust to use 'jk' to escapy insert mode
