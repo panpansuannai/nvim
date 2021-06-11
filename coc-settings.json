@@ -100,6 +100,6 @@
     "git.enableGutters": true,
     "git.enableGlobalStatus": true,
 
-    "java.home": "/usr/lib/jvm/java-16-jdk",
+    "java.home": "/usr/lib/jvm/java-16-jdk"
 
 }

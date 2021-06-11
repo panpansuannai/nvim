@@ -163,6 +163,8 @@ highlight Normal guibg=none ctermbg=none
     " remap [[ and ]]
     nnoremap [[ ^
     nnoremap ]] $
+    " update coc_status
+    autocmd User CocStatusChange redraws
 " }}}
 
 " help me ajust to use 'jk' to escapy insert mode

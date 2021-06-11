@@ -2,7 +2,7 @@
 nnoremap <leader>ec :edit ~/.config/nvim/vimfiles/coc.nvim.vim<cr>
 
 let g:coc_suggest_disable = 0 
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets', 'coc-python', 'coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex', 'coc-lua']
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets', 'coc-python', 'coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex']
 
 
 
@@ -64,3 +64,13 @@ nnoremap <leader>ee :CocCommand explorer<cr>
 " coc-translator
 nmap <leader>tr <Plug>(coc-translator-p)
 vmap <leader>tr <Plug>(coc-translator-pv)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+"if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"endif
