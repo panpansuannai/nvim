@@ -159,6 +159,10 @@ highlight Normal guibg=none ctermbg=none
 
     " excute current line
     nnoremap <C-e> V"ay:!<C-r>a<cr><cr>
+
+    " remap [[ and ]]
+    nnoremap [[ ^
+    nnoremap ]] $
 " }}}
 
 " help me ajust to use 'jk' to escapy insert mode
