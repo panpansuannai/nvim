@@ -34,11 +34,15 @@ table.insert(gls.left, {
                               [''] = colors.blue,V=colors.blue,
                               c = colors.magenta,no = colors.red,s = colors.orange,
                               S=colors.orange,[''] = colors.orange,
-                              ic = colors.yellow,R = colors.violet,Rv = colors.violet,
+                              ic = colors.yellow,R = colors.purple,Rv = colors.purple,
+                              Rc = colors.purple, Rx = colors.purple,
                               cv = colors.red,ce=colors.red, r = colors.cyan,
                               rm = colors.cyan, ['r?'] = colors.cyan,
                               ['!']  = colors.red,t = colors.red}
-            vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
+            if (mode_color[vim.fn.mode()])
+            then
+              vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
+            end 
             local mode_string = '▊ '
             if vim.bo.modified
             then
