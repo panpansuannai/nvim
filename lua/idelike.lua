@@ -46,7 +46,7 @@ table.insert(gls.left, {
             local mode_string = '▊ '
             if vim.bo.modified
             then
-              mode_string = mode_string..' [+] '
+              mode_string = mode_string..'  '
             else
               mode_string = mode_string..' '
             end
@@ -104,6 +104,11 @@ table.insert(gls.left, {
         highlight = {colors.red, colors.bg}
     }
 })
+
+table.insert(gls.right, {
+    SFileName = {provider = 'SFileName', condition = condition.buffer_not_empty, highlight = {colors.magenta, colors.bg}}
+})
+
 
 table.insert(gls.right, {
     DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}

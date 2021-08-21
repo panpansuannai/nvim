@@ -12,7 +12,8 @@ Plug 'neoclide/coc.nvim'           " language client
 
 Plug 'neoclide/coc-pairs'          " auto pair
 
-Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c'}    " debugger
+" debugger
+Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c --force-enable-rust'}  
 
 "Plug 'morhetz/gruvbox'
 
@@ -38,7 +39,9 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy search p
 
 Plug 'itchyny/vim-cursorword'      " outstand the word at cursor
 
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
+
+Plug 'honza/vim-snippets' " snippets
 call plug#end()
 
 

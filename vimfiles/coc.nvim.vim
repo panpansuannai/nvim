@@ -2,9 +2,7 @@
 nnoremap <leader>ec :edit ~/.config/nvim/vimfiles/coc.nvim.vim<cr>
 
 let g:coc_suggest_disable = 0 
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets', 'coc-python', 'coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex']
-
-
+let g:coc_global_extensions = ['coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets','coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex']
 
 " use <tab> for trigger completion and navigate to the next complete item
  function! s:check_back_space() abort
@@ -16,15 +14,38 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+inoremap <silent><expr> <C-j>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<C-j>" :
+      \ coc#refresh()
+inoremap <silent><expr> <C-k>
+      \ pumvisible() ? "\<C-p>" :
+      \ <SID>check_back_space() ? "\<C-k>" :
+      \ coc#refresh()
+" Press <CR> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-inoremap <silent><expr> <c-j> coc#refresh()
 nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
-" nnoremap <silent> <leader>f <Plug>(coc-fix-current)
+
+nmap <silent> <leader>fx <Plug>(coc-fix-current)
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
+nmap <silent> g{ <Plug>(coc-diagnostic-prev-error)
+nmap <silent> g} <Plug>(coc-diagnostic-next-error)
+" float window 
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<A-f>"
+  nnoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<A-b>"
+  inoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : ""
+  inoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : ""
+  vnoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<A-f>"
+  vnoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<A-b>"
+endif
 
-" GoTo code navigation.
+" Code navigation.
+nmap <silent> gD <plug>(coc-declaration)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -51,6 +72,9 @@ nmap <leader>cwh <Plug>(coc-float-hide)
 " rename 
 nmap <leader>cr <Plug>(coc-rename)
 
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
@@ -61,16 +85,12 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 " coc-explorer
 nnoremap <leader>ee :CocCommand explorer<cr>
 
+" CocList
+nnoremap <leader>o :CocList outline<cr>
+
 " coc-translator
 nmap <leader>tr <Plug>(coc-translator-p)
 vmap <leader>tr <Plug>(coc-translator-pv)
+" coc-lightlight
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-"if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <A-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <A-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"endif

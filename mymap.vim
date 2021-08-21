@@ -5,7 +5,7 @@ syntax on
 set updatetime=100
 
 " enable mouse
-set mouse=nv
+" set mouse=nv
 
 " line number
 set number numberwidth =6
@@ -13,6 +13,9 @@ set rnu
 
 " highlight the search result
 set incsearch
+
+" stop search when reach end of file
+set nowrapscan
 
 syntax on
 
@@ -39,7 +42,7 @@ set hlsearch
 set cmdheight=1
 
 " colors
-colorscheme gruvbox
+colorscheme one
 set termguicolors
 " colorscheme industry
 " colorscheme OceanicNext
@@ -117,8 +120,8 @@ highlight Normal guibg=none ctermbg=none
     nnoremap <silent> <leader>wo <C-w>o
     nnoremap <silent> <leader>w= 10<C-w>+
     nnoremap <silent> <leader>w- 10<C-w>-
-    nnoremap <silent> <leader>w. 10<C-w><
-    nnoremap <silent> <leader>w, 10<C-w>>
+    nnoremap <silent> <leader>w. 10<C-w>>
+    nnoremap <silent> <leader>w, 10<C-w><
 
     vnoremap <silent> <leader>wv <C-w>v<C-w>l
     vnoremap <silent> <leader>ws <C-w>s<C-w>j
@@ -136,8 +139,6 @@ highlight Normal guibg=none ctermbg=none
     " improve editing
     " <leader>J in n mode to split the current line 
     nnoremap <leader>J  i<cr><esc>
-    inoremap <silent> <C-l> <esc>A
-    inoremap <silent> <C-h> <Esc>I
     inoremap <silent> <C-d> <Esc>dd
 
 
@@ -147,7 +148,10 @@ highlight Normal guibg=none ctermbg=none
     nmap <leader>s :w<cr>
     nmap <leader>sw :w !sudo tee%<cr>
     nmap <silent><leader>S :source $MYVIMRC<cr>
-    inoremap jk <esc>
+    nmap <BS> <Del>
+    " inoremap jk <esc>
+    inoremap qi <esc>
+    nnoremap <leader>m %
     autocmd FileType vim setlocal foldmethod=marker
 
     " edit vimrc
@@ -159,15 +163,20 @@ highlight Normal guibg=none ctermbg=none
 
     " excute current line
     nnoremap <C-e> V"ay:!<C-r>a<cr><cr>
+    nnoremap <A-e> V"ay:!<C-r>a<cr>
 
-    " remap [[ and ]]
-    nnoremap [[ ^
-    nnoremap ]] $
+    noremap <leader>[ ^
+    noremap <leader>] $
     " update coc_status
     autocmd User CocStatusChange redraws
+
+    " options close
+    nnoremap <leader>qh :TSDisableAll highlight<cr>
+
+    " option open
+    nnoremap <leader>ah :TSEnableAll highlight<cr>
 " }}}
 
 " help me ajust to use 'jk' to escapy insert mode
-inoremap <c-[> [
 
 " }
