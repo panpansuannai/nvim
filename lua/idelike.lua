@@ -22,28 +22,76 @@ local colors = {
     error_red = '#F44747',
     info_yellow = '#FFCC66'
 }
+local mode_color = {n = colors.red, i = colors.green,v=colors.blue,
+                  [''] = colors.blue,V=colors.blue,
+                  c = colors.magenta,no = colors.red,s = colors.orange,
+                  S=colors.orange,[''] = colors.orange,
+                  ic = colors.yellow,R = colors.purple,Rv = colors.purple,
+                  Rc = colors.purple, Rx = colors.purple,
+                  cv = colors.red,ce=colors.red, r = colors.cyan,
+                  rm = colors.cyan, ['r?'] = colors.cyan,
+                  ['!']  = colors.red,t = colors.red}
+
+local mode_icon = { 
+	c = "🅒 ", ['!'] = "🅒 ",
+	i = "🅘 ", ic    = "🅘 ", ix     = "🅘 ",
+	n = "🅝 ",
+	R = "🅡 ", Rv    = "🅡 ",
+	r = "🅡 ", rm    = "🅡 ", ['r?'] = "🅡 ",
+	s = "🅢 ", S     = "🅢 ", [''] = "🅢 ",
+	t = "🅣 ",
+	v = "🅥 ", V     = "🅥 ", [''] = "🅥 ",
+}
+
+local function mode_alias(m)
+  local alias = {
+    n = 'NORMAL',
+    i = 'INSERT',
+    c = 'COMMAND',
+    R = 'REPLACE',
+    t = 'TERMINAL',
+    [''] = 'V-BLOCK',
+    V = 'V-LINE',
+    v = 'VISUAL',
+  }
+  return alias[m]
+end
+
 local condition = require('galaxyline.condition')
 local gls = gl.section
 gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer'}
-
+--[[
+table.insert(gls.left, {
+    Start = {
+      provider = function()
+            local mode_string = '▊ '
+            vim.api.nvim_command('hi GalaxyStart guifg=' .. mode_color[vim.fn.mode()])
+            if vim.bo.modified
+            then
+              mode_string = mode_string..'  '
+            else
+              mode_string = mode_string..' '
+            end
+            return mode_string
+      end,
+      highlight = {mode_color[vim.fn.mode() or vim.fn.visualmode()], colors.bg}
+    }
+})
+--]]
 table.insert(gls.left, {
     ViMode = {
+        -- separator = ' ',
+        separator_highlight = 'GalaxyViModeReverse',
         provider = function()
             -- auto change color according the vim mode
-            local mode_color = {n = colors.red, i = colors.green,v=colors.blue,
-                              [''] = colors.blue,V=colors.blue,
-                              c = colors.magenta,no = colors.red,s = colors.orange,
-                              S=colors.orange,[''] = colors.orange,
-                              ic = colors.yellow,R = colors.purple,Rv = colors.purple,
-                              Rc = colors.purple, Rx = colors.purple,
-                              cv = colors.red,ce=colors.red, r = colors.cyan,
-                              rm = colors.cyan, ['r?'] = colors.cyan,
-                              ['!']  = colors.red,t = colors.red}
-            if (mode_color[vim.fn.mode()])
+            local mode = vim.fn.mode() or vim.fn.visualmode()
+            if (mode_color[mode])
             then
-              vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
+              vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[mode])
+              vim.api.nvim_command('hi GalaxyViModeReverse guifg=' .. mode_color[mode])
             end 
             local mode_string = '▊ '
+            mode_string = mode_string .. mode_icon[mode]
             if vim.bo.modified
             then
               mode_string = mode_string..'  '
@@ -55,15 +103,13 @@ table.insert(gls.left, {
         highlight = {colors.red, colors.bg}
     }
 })
-print(vim.fn.getbufvar(0, 'ts'))
-vim.fn.getbufvar(0, 'ts')
 
 table.insert(gls.left, {
     GitIcon = {
         provider = function()
-            return ' '
+            return '  '
         end,
-        condition = condition.check_git_workspace,
+        -- condition = condition.check_git_workspace,
         separator = ' ',
         separator_highlight = {'NONE', colors.bg},
         highlight = {colors.orange, colors.bg}
@@ -111,15 +157,27 @@ table.insert(gls.right, {
 
 
 table.insert(gls.right, {
-    DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}
+    DiagnosticError = {
+      provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}
+    }
 })
-table.insert(gls.right, {DiagnosticWarn = {provider = 'DiagnosticWarn', icon = '  ', highlight = {colors.orange, colors.bg}}})
 
 table.insert(gls.right, {
-    DiagnosticHint = {provider = 'DiagnosticHint', icon = '  ', highlight = {colors.vivid_blue, colors.bg}}
+    DiagnosticHint = {
+      provider = 'DiagnosticHint', icon = '  ', highlight = {colors.vivid_blue, colors.bg}
+    }
+})
+table.insert(gls.right, {
+    DiagnosticWarn = {
+      provider = 'DiagnosticWarn', icon = '  ', highlight = {colors.orange, colors.bg}
+  }
 })
 
-table.insert(gls.right, {DiagnosticInfo = {provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}}})
+table.insert(gls.right, {
+  DiagnosticInfo = {
+    provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}
+  }
+  })
 
 table.insert(gls.right, {
     TreesitterIcon = {
@@ -217,5 +275,23 @@ table.insert(gls.short_line_left, {
 table.insert(gls.short_line_left, {
     SFileName = {provider = 'SFileName', condition = condition.buffer_not_empty, highlight = {colors.blue, colors.bg}}
 })
+--[[
+table.insert(gls.right, {
+  ViMode = {
+    icon = ' ',
+    separator = ' ',
+    separator_highlight = 'GalaxyViModeReverse',
+    highlight = {colors.bg, mode_color['n']},
+    provider = function()
+      local m = vim.fn.mode() or vim.fn.visualmode()
+      local mode = mode_alias(m)
+      local color = mode_color[m]
+      vim.api.nvim_command('hi GalaxyViMode guibg=' .. color)
+      vim.api.nvim_command('hi GalaxyViModeReverse guifg=' .. color)
+      return ' ' .. mode .. ' '
+    end,
+  }
+})
+--]]
 
 --table.insert(gls.short_line_right[1] = {BufferIcon = {provider = 'BufferIcon', highlight = {colors.grey, colors.bg}}})

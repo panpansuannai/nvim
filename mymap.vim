@@ -2,6 +2,9 @@ set nocompatible
 filetype off 
 syntax on
 
+" set foldmethod=syntax
+" split a window to show substitute
+set inccommand=split
 set updatetime=100
 
 " enable mouse
@@ -9,6 +12,7 @@ set updatetime=100
 
 " line number
 set number numberwidth =6
+" set nonu
 set rnu
 
 " highlight the search result
@@ -47,6 +51,11 @@ set termguicolors
 " colorscheme industry
 " colorscheme OceanicNext
 highlight Normal guibg=none ctermbg=none 
+" highlight the yanked text
+augroup LuaHighlight
+    autocmd!
+      autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+    augroup END
 
 " define key mapping {
 " {{{

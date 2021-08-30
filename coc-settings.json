@@ -34,11 +34,11 @@
     "suggest.numberSelect": false,
     "suggest.labelMaxLength": 50,
     "suggest.maxPreviewWidth": 60,
-    "suggest.maxCompleteItemCount": 20,
+    "suggest.maxCompleteItemCount": 50,
     "suggest.detailMaxLength": 60,
     "suggest.defaultSortMethod":"alphabetical",
     "suggest.removeDuplicateItems": true,
-    "suggest.snippetIndicator": "s",
+    "suggest.snippetIndicator": "",
 	  "suggest.completionItemKindLabels": {
       "keyword": "\uf1de",
       "variable": "\ue79b",
@@ -125,5 +125,22 @@
     "java.home": "/usr/lib/jvm/java-16-jdk",
     "rust-analyzer.hoverActions.enable": true,
     "rust-analyzer.hover.documentation": true,
-    "rust-analyzer.hover.linksInHover": true
+    "rust-analyzer.hover.linksInHover": true,
+    "rust-analyzer.checkOnSave.allTargets": false,
+
+    // coc-restclient: allow to send HTTP request and view the response
+    "rest-client.enable" : true,
+    "rest-client.showHeaders" : true,
+    "rest-client.proxy" : "",
+    "rest-client.proxyStrictSSL" : false,
+    "rest-client.excludeHostsForProxy" : [],
+    "rest-client.timeoutinmilliseconds" : 0,
+    "rest-client.followredirect" : true,
+    "rest-client.certificates" : {}, 
+
+    // coc-leetcode
+    "leetcode.enabled": true,
+    "leetcode.language": "rust",
+    "leetcode.trace.server": "off"
+
 }

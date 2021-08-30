@@ -42,6 +42,8 @@ Plug 'itchyny/vim-cursorword'      " outstand the word at cursor
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
 
 Plug 'honza/vim-snippets' " snippets
+
+Plug 'MattesGroeger/vim-bookmarks' " bookmarks
 call plug#end()
 
 

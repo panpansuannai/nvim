@@ -311,6 +311,9 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
     let s:hue_6   = ['#d19a66', '173'] " orange 1
     let s:hue_6_2 = ['#e5c07b', '180'] " orange 2
 
+    let s:hue_7   = ['#af00af', '125'] " DeepPink4
+    let s:hue_8   = ['#afafff', '147'] " LightSteelBlue
+
     let s:syntax_bg     = ['#282c34', '16']
     let s:syntax_gutter = ['#636d83', '60']
     let s:syntax_cursor = ['#2c323c', '16']
@@ -323,6 +326,7 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
     let s:pmenu        = ['#282c34', '16']
     let s:pmenu_sel    = ['#d19a66', '16']
     let s:cursorlinebg = s:syntax_cursor
+    let s:normal       = ['#d7d7af', '185']
   else
     let s:mono_1 = ['#494b53', '23']
     let s:mono_2 = ['#696c77', '60']
@@ -359,10 +363,10 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   " }}}
 
   " Vim editor color --------------------------------------------------------{{{
-  call <sid>X('Normal',       s:syntax_fg,     s:syntax_bg,      '')
+  call <sid>X('Normal',       s:normal,     s:syntax_bg,      '')
   call <sid>X('bold',         '',              '',               'bold')
   call <sid>X('ColorColumn',  '',              s:syntax_cursor,  '')
-  call <sid>X('Conceal',      s:mono_4,        s:none,      '')
+  call <sid>X('Conceal',      s:hue_3,        s:none,      '')
   call <sid>X('Cursor',       '',              s:syntax_accent,  '')
   call <sid>X('CursorIM',     '',              '',               '')
   call <sid>X('CursorColumn', '',              s:syntax_cursor,  '')
@@ -374,7 +378,7 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   call <sid>X('FoldColumn',   s:mono_3,        s:syntax_cursor,  '')
   call <sid>X('IncSearch',    s:hue_6,         '',               '')
   call <sid>X('LineNr',       s:mono_4,        '',               '')
-  call <sid>X('CursorLineNr', s:hue_6_2,       s:none,           'none')
+  call <sid>X('CursorLineNr', s:hue_6_2,       s:none,           '')
   call <sid>X('MatchParen',   s:hue_5,         s:none,           'bold')
   call <sid>X('Italic',       '',              '',               s:italic)
   call <sid>X('ModeMsg',      s:syntax_fg,     '',               '')
@@ -387,7 +391,7 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   call <sid>X('Question',     s:hue_2,         '',               '')
   call <sid>X('Search',       s:syntax_bg,     s:hue_6_2,        '')
   call <sid>X('SpecialKey',   s:special_grey,  '',               'none')
-  call <sid>X('Whitespace',   s:special_grey,  '',               'none')
+  call <sid>X('Whitespace',   s:syntax_bg,  '',               'none')
   call <sid>X('StatusLine',   s:syntax_fg,     s:none,  'none')
   call <sid>X('StatusLineNC', s:mono_3,        '',               '')
   call <sid>X('TabLine',      s:none,          s:none,    'none')
@@ -411,19 +415,19 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   " }}}
 
   " Standard syntax highlighting --------------------------------------------{{{
-  call <sid>X('Comment',        s:mono_3,        '',          s:italic)
-  call <sid>X('Constant',       s:hue_4,         '',          '')
-  call <sid>X('String',         s:hue_4,         '',          '')
-  call <sid>X('Character',      s:hue_4,         '',          '')
+  call <sid>X('Comment',        s:hue_4,         '',          s:italic)
+  call <sid>X('Constant',       s:hue_3,         '',          '')
+  call <sid>X('String',         s:hue_2,         '',          '')
+  call <sid>X('Character',      s:hue_1,         '',          '')
   call <sid>X('Number',         s:hue_6,         '',          '')
   call <sid>X('Boolean',        s:hue_6,         '',          '')
   call <sid>X('Float',          s:hue_6,         '',          '')
   call <sid>X('Identifier',     s:hue_5,         '',          'none')
   call <sid>X('Function',       s:hue_2,         '',          '')
-  call <sid>X('Statement',      s:hue_3,         '',          'none')
-  call <sid>X('Conditional',    s:hue_3,         '',          '')
-  call <sid>X('Repeat',         s:hue_3,         '',          '')
-  call <sid>X('Label',          s:hue_3,         '',          '')
+  call <sid>X('Statement',      s:hue_7,         '',          'none')
+  call <sid>X('Conditional',    s:hue_8,         '',          '')
+  call <sid>X('Repeat',         s:hue_6_2,       '',          '')
+  call <sid>X('Label',          s:hue_5_2,       '',          '')
   call <sid>X('Operator',       s:syntax_accent, '',          'none')
   call <sid>X('Keyword',        s:hue_5,         '',          '')
   call <sid>X('Exception',      s:hue_3,         '',          '')
@@ -431,20 +435,20 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   call <sid>X('Include',        s:hue_2,         '',          '')
   call <sid>X('Define',         s:hue_3,         '',          'none')
   call <sid>X('Macro',          s:hue_3,         '',          '')
-  call <sid>X('PreCondit',      s:hue_6_2,       '',          '')
-  call <sid>X('Type',           s:hue_6_2,       '',          'none')
-  call <sid>X('StorageClass',   s:hue_6_2,       '',          '')
-  call <sid>X('Structure',      s:hue_6_2,       '',          '')
+  call <sid>X('PreCondit',      s:hue_5_2,       '',          '')
+  call <sid>X('Type',           s:hue_7,         '',          'none')
+  call <sid>X('StorageClass',   s:hue_7,         '',          '')
+  call <sid>X('Structure',      s:hue_8,         '',          '')
   call <sid>X('Typedef',        s:hue_6_2,       '',          '')
   call <sid>X('Special',        s:hue_2,         '',          '')
   call <sid>X('SpecialChar',    '',              '',          '')
   call <sid>X('Tag',            '',              '',          '')
   call <sid>X('Delimiter',      '',              '',          '')
-  call <sid>X('SpecialComment', '',              '',          '')
+  call <sid>X('SpecialComment', s:mono_3,        '',          '')
   call <sid>X('Debug',          '',              '',          '')
   call <sid>X('Underlined',     '',              '',          'underline')
   call <sid>X('Ignore',         '',              '',          '')
-  call <sid>X('Error',          s:hue_5,              s:none,          'bold')
+  call <sid>X('Error',          s:hue_5,         s:none,          'bold')
   call <sid>X('Todo',           s:hue_3,         '',          '')
   " }}}
 
@@ -835,14 +839,14 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   " Rust highlighting -------------------------------------------------------{{{
   call <sid>X('rustExternCrate',          s:hue_5,    '', 'bold')
   call <sid>X('rustIdentifier',           s:hue_2,    '', '')
-  call <sid>X('rustDeriveTrait',          s:hue_4,    '', '')
-  call <sid>X('SpecialComment',           s:mono_3,    '', '')
-  call <sid>X('rustCommentLine',          s:mono_3,    '', '')
-  call <sid>X('rustCommentLineDoc',       s:mono_3,    '', '')
-  call <sid>X('rustCommentLineDocError',  s:mono_3,    '', '')
-  call <sid>X('rustCommentBlock',         s:mono_3,    '', '')
-  call <sid>X('rustCommentBlockDoc',      s:mono_3,    '', '')
-  call <sid>X('rustCommentBlockDocError', s:mono_3,    '', '')
+  call <sid>X('rustDeriveTrait',          s:hue_3,    '', '')
+  call <sid>X('SpecialComment',           s:hue_1,    '', '')
+  call <sid>X('rustCommentLine',          s:hue_4,    '', '')
+  call <sid>X('rustCommentLineDoc',       s:hue_6,    '', '')
+  call <sid>X('rustCommentLineDocError',  s:hue_6_2,    '', '')
+  call <sid>X('rustCommentBlock',         s:hue_7,    '', '')
+  call <sid>X('rustCommentBlockDoc',      s:hue_8,    '', '')
+  call <sid>X('rustCommentBlockDocError', s:hue_4,    '', '')
   " }}}
 
   " man highlighting --------------------------------------------------------{{{

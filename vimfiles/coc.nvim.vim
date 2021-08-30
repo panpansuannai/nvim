@@ -61,7 +61,7 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-nmap <Tab> :CocList <cr>
+nmap <Tab> :CocList<cr>
 
 " format
 nmap <leader>cf  <Plug>(coc-format-selected)
