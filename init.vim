@@ -44,6 +44,7 @@ Plug 'itchyny/vim-cursorword'      " outstand the word at cursor
 Plug 'honza/vim-snippets' " snippets
 
 Plug 'MattesGroeger/vim-bookmarks' " bookmarks
+Plug 'neovim/nvim-lspconfig'
 call plug#end()
 
 

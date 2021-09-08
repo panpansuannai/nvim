@@ -120,7 +120,9 @@
     },
 
     "git.enableGutters": true,
-    "git.enableGlobalStatus": true,
+    "git.enableGlobalStatus": false,
+    "git.addGBlameToVirtualText": false,
+    "git.virtualTextPrefix": " @:",
 
     "java.home": "/usr/lib/jvm/java-16-jdk",
     "rust-analyzer.hoverActions.enable": true,
