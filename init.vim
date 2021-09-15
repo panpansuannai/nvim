@@ -21,7 +21,7 @@ Plug 'tpope/vim-surround'          "
 
 Plug 'voldikss/vim-floaterm'       " call a float window terminal
 
-Plug 'metakirby5/codi.vim'         " 
+Plug 'metakirby5/codi.vim'         " python scratchpad
 
 Plug 'lervag/vimtex'               " latex plugin
 
@@ -45,6 +45,8 @@ Plug 'honza/vim-snippets' " snippets
 
 Plug 'MattesGroeger/vim-bookmarks' " bookmarks
 Plug 'neovim/nvim-lspconfig'
+
+Plug 'Shougo/echodoc.vim'
 call plug#end()
 
 

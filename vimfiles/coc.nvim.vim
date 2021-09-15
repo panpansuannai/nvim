@@ -30,6 +30,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
 
 nmap <silent> <leader>fx <Plug>(coc-fix-current)
+nmap <silent> <leader>rf <Plug>(coc-refactor)
 nmap <silent> g[ <Plug>(coc-diagnostic-prev)
 nmap <silent> g] <Plug>(coc-diagnostic-next)
 nmap <silent> g{ <Plug>(coc-diagnostic-prev-error)
@@ -83,7 +84,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 " nmap <leader>te <Plug>(coc-terminal-toggle)
 
 " coc-explorer
-nnoremap <leader>ee :CocCommand explorer<cr>
+nnoremap <silent> <leader>ee :CocCommand explorer<cr>
 
 " CocList
 nnoremap <leader>o :CocList outline<cr>
