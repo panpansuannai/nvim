@@ -10,7 +10,6 @@
 
   // Call Hierarchy
   "callHierarchy.enableTooltip": true,
-
   // Hover
   "hover.target": "float",
   "hover.previewMaxHeight": 12,
@@ -45,7 +44,7 @@
     ".project.json",
     ".toml"
   ],
-  "coc.preferences.jumpCommand": "tabe",
+  "coc.preferences.jumpCommand": "edit",
   "coc.preferences.formatOnType": false,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.promptInput": true,
@@ -60,7 +59,8 @@
   "suggest.floatConfig": {
     "border": true,
     "shadow": false,
-    "maxWidth": 50
+    "maxWidth": 50,
+    "borderhighlight": "CocFloating"
   },
   "suggest.labelMaxLength": 50,
   "suggest.detailMaxLength": 60,
@@ -78,7 +78,7 @@
   "suggest.localityBonus": true,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.timeout": 500,
-  "suggest.minTriggerInputLength": 1,
+  "suggest.minTriggerInputLength": 0,
   "suggest.triggerCompletionWait": 500,
   "suggest.echodocSupport": true,
   "suggest.acceptSuggestionOnCommitCharacter": false,
@@ -178,15 +178,15 @@
   },
   "git.enableGutters": true,
   "git.enableGlobalStatus": false,
-  "git.addGBlameToVirtualText": false,
+  "git.addGBlameToVirtualText": true,
   "git.virtualTextPrefix": " @:",
-  "java.home": "/usr/lib/jvm/java-16-jdk",
+  "java.home": "/usr/lib/jvm/java-11-openjdk",
 
   // Rust-analyzer
   "rust-analyzer.hoverActions.enable": true,
   "rust-analyzer.hover.documentation": true,
   "rust-analyzer.hover.linksInHover": true,
-  "rust-analyzer.checkOnSave.allTargets": false,
+  "rust-analyzer.checkOnSave.allTargets": true,
   "rust-analyzer.updates.channel": "nightly",
   "rust-analyzer.cargo.allFeatures": true,
 

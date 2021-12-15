@@ -5,7 +5,8 @@ syntax on
 " set foldmethod=syntax
 " split a window to show substitute
 set inccommand=split
-set updatetime=100
+set updatetime=2000
+set timeoutlen=700
 
 " enable mouse
 " set mouse=nv
@@ -148,7 +149,7 @@ augroup LuaHighlight
     " improve editing
     " <leader>J in n mode to split the current line 
     nnoremap <leader>J  i<cr><esc>
-    inoremap <silent> <C-d> <Esc>dd
+    " inoremap <silent> <C-d> <Esc>dd
 
 
     " misc
@@ -158,7 +159,8 @@ augroup LuaHighlight
     nmap <leader>sw :w !sudo tee%<cr>
     nmap <silent><leader>S :source $MYVIMRC<cr>
     nmap <BS> <Del>
-    " inoremap jk <esc>
+    nnoremap <silent><C-x> :tabclose<cr>
+    inoremap jk <esc>
     inoremap qi <esc>
     nnoremap <leader>m %
     autocmd FileType vim setlocal foldmethod=marker
@@ -184,6 +186,10 @@ augroup LuaHighlight
 
     " option open
     nnoremap <leader>ah :TSEnableAll highlight<cr>
+    
+    " Session
+    nnoremap <leader>se :mks! session.vim<cr>
+    nnoremap <leader>sl :source session.vim<cr>
 " }}}
 
 " help me ajust to use 'jk' to escapy insert mode

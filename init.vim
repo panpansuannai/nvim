@@ -3,6 +3,7 @@ set runtimepath+=~/.config/nvim
 
 " my vim plugin files directory
 let s:vimfilespath='~/.config/nvim/vimfiles/'
+let g:vimsessionpath='~/.config/nvim/sessions/'
 
 " use vim-plug
 call plug#begin()
@@ -44,9 +45,13 @@ Plug 'itchyny/vim-cursorword'      " outstand the word at cursor
 Plug 'honza/vim-snippets' " snippets
 
 Plug 'MattesGroeger/vim-bookmarks' " bookmarks
+
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'Shougo/echodoc.vim'
+Plug 'nacro90/numb.nvim' " Peeking the buffer while entering command :{number} 
+
+Plug 'easymotion/vim-easymotion'
+
 call plug#end()
 
 

@@ -2,7 +2,7 @@
 nnoremap <leader>ec :edit ~/.config/nvim/vimfiles/coc.nvim.vim<cr>
 
 let g:coc_suggest_disable = 0 
-let g:coc_global_extensions = ['coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets','coc-json', 'coc-java', 'coc-highlight', 'coc-fzf-preview', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex']
+let g:coc_global_extensions = ['coc-vimlsp', 'coc-translator', 'coc-terminal', 'coc-snippets','coc-json', 'coc-java', 'coc-highlight', 'coc-explorer', 'coc-cmake', 'coc-clangd','coc-vimtex']
 
 " use <tab> for trigger completion and navigate to the next complete item
  function! s:check_back_space() abort
