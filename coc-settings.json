@@ -128,7 +128,7 @@
   "diagnostic.checkCurrentLine": true,
   "diagnostic.messageTarget": "float",
   "diagnostic.messageDelay": 200,
-  "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.refreshOnInsertMode": true,
   "diagnostic.displayByAle": false,
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
@@ -178,7 +178,7 @@
   },
   "git.enableGutters": true,
   "git.enableGlobalStatus": false,
-  "git.addGBlameToVirtualText": true,
+  "git.addGBlameToVirtualText": false,
   "git.virtualTextPrefix": " @:",
   "java.home": "/usr/lib/jvm/java-11-openjdk",
 
@@ -227,5 +227,9 @@
 
   // Coc-highlight
   "highlight.colors.enable": true,
-  "highlight.document.enable": true
+  "highlight.document.enable": true,
+  "clangd.enabled": true,
+  "clangd.arguments": [],
+  "clangd.fallbackFlags": ["-std=c++17"],
+  "clangd.checkUpdates": true
 }

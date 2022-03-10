@@ -46,11 +46,16 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
 endif
 
 " Code navigation.
-nmap <silent> gD <plug>(coc-declaration)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent>         gD <plug>(coc-declaration)
+nmap <silent> <leader>gD :call OpenBufInNewTab()<cr><plug>(coc-declaration)
+nmap <silent>         gd <Plug>(coc-definition)
+nmap <silent> <leader>gd :call OpenBufInNewTab()<cr><Plug>(coc-definition)
+nmap <silent>         gt <Plug>(coc-type-definition)
+nmap <silent> <leader>gt :call OpenBufInNewTab()<cr><Plug>(coc-type-definition)
+nmap <silent>         gi <Plug>(coc-implementation)
+nmap <silent> <leader>gi :call OpenBufInNewTab()<cr><Plug>(coc-implementation)
+nmap <silent>         gr <Plug>(coc-references)
+nmap <silent> <leader>gr :call OpenBufInNewTab()<cr><Plug>(coc-references)
 
 xmap if <Plug>(coc-funcobj-i) 
 omap if <Plug>(coc-funcobj-i)
