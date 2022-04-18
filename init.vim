@@ -8,23 +8,17 @@ let g:vimsessionpath='~/.config/nvim/sessions/'
 " use vim-plug
 call plug#begin()
 
-Plug 'preservim/nerdcommenter'     " comment plugin
-Plug 'neoclide/coc.nvim'           " language client
+" Plug 'neoclide/coc.nvim'           " language client
 
-Plug 'neoclide/coc-pairs'          " auto pair
+" Plug 'neoclide/coc-pairs'          " auto pair
 
 " debugger
-Plug 'puremourning/vimspector',{'do':'./install_gadget.py --enable-python --enable-c --force-enable-rust'}  
 
 "Plug 'morhetz/gruvbox'
 
-Plug 'tpope/vim-surround'          " 
+Plug 'tpope/vim-surround'
 
 Plug 'voldikss/vim-floaterm'       " call a float window terminal
-
-Plug 'metakirby5/codi.vim'         " python scratchpad
-
-Plug 'lervag/vimtex'               " latex plugin
 
 Plug 'Yggdroot/indentLine'         " show indent
 
@@ -34,7 +28,7 @@ Plug 'kyazdani42/nvim-web-devicons'                  " use icon in galaxyline
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}   " tree-sitter highlight
 
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy search plugin
+" Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }   " fuzy search plugin
 
 "Plug 'notomo/gesture.nvim'        " support gesture
 
@@ -42,16 +36,32 @@ Plug 'itchyny/vim-cursorword'      " outstand the word at cursor
 
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }    " show my key map
 
-Plug 'honza/vim-snippets' " snippets
 
 Plug 'MattesGroeger/vim-bookmarks' " bookmarks
 
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'nacro90/numb.nvim' " Peeking the buffer while entering command :{number} 
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+Plug 'folke/trouble.nvim'
+
+Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'easymotion/vim-easymotion'
+Plug 'folke/lsp-colors.nvim'
 
+Plug 'simrat39/symbols-outline.nvim'
+
+Plug 'EdenEast/nightfox.nvim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 

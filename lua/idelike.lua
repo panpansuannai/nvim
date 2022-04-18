@@ -156,6 +156,7 @@ table.insert(gls.right, {
 })
 
 
+--[[
 table.insert(gls.right, {
     DiagnosticError = {
       provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}
@@ -178,6 +179,7 @@ table.insert(gls.right, {
     provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}
   }
   })
+--]]
 
 table.insert(gls.right, {
     TreesitterIcon = {

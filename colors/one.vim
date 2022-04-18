@@ -315,6 +315,7 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
     let s:hue_8   = ['#afafff', '147'] " LightSteelBlue
 
     let s:syntax_bg     = ['#282c34', '16']
+    let s:syntax_dark   = ['#303438', '16']
     let s:syntax_gutter = ['#636d83', '60']
     let s:syntax_cursor = ['#2c323c', '16']
 
@@ -357,7 +358,7 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
     let s:pmenu        = ['#dfdfdf', '253']
   endif
 
-  let s:syntax_fg = s:mono_1
+  let s:syntax_fg = s:mono_3
   let s:syntax_fold_bg = s:mono_3
 
   " }}}
@@ -369,15 +370,15 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   call <sid>X('Conceal',      s:hue_3,        s:none,      '')
   call <sid>X('Cursor',       '',              s:syntax_accent,  '')
   call <sid>X('CursorIM',     '',              '',               '')
-  call <sid>X('CursorColumn', '',              s:syntax_cursor,  '')
-  call <sid>X('CursorLine',   '',              s:syntax_bg,           'bold')
+  call <sid>X('CursorColumn', s:hue_2,              s:syntax_cursor,  '')
+  call <sid>X('CursorLine',   '',              s:syntax_dark,           'bold')
   call <sid>X('Directory',    s:hue_2,         '',               '')
   call <sid>X('ErrorMsg',     '',              s:syntax_bg,      'none')
   call <sid>X('VertSplit',    s:hue_1,         s:hue_1,          'none')
-  call <sid>X('Folded',       s:hue_1,         s:none,           'none')
-  call <sid>X('FoldColumn',   s:mono_3,        s:syntax_cursor,  '')
+  call <sid>X('Folded',       s:hue_4,         s:syntax_dark,           'none')
+  call <sid>X('FoldColumn',   s:hue_6_2,        s:none,  '')
   call <sid>X('IncSearch',    s:hue_6,         '',               '')
-  call <sid>X('LineNr',       s:mono_4,        '',               '')
+  call <sid>X('LineNr',       s:mono_4,        s:none,               '')
   call <sid>X('CursorLineNr', s:hue_6_2,       s:none,           '')
   call <sid>X('MatchParen',   s:hue_5,         s:none,           'bold')
   call <sid>X('Italic',       '',              '',               s:italic)
@@ -392,7 +393,7 @@ if has('gui_running') || has('termguicolors') || &t_Co == 88 || &t_Co == 256
   call <sid>X('Search',       s:syntax_bg,     s:hue_6_2,        '')
   call <sid>X('SpecialKey',   s:special_grey,  '',               'none')
   call <sid>X('Whitespace',   s:syntax_bg,  '',               'none')
-  call <sid>X('StatusLine',   s:syntax_fg,     s:none,  'none')
+  call <sid>X('StatusLine',   s:syntax_accent,     s:none,  'none')
   call <sid>X('StatusLineNC', s:mono_3,        '',               '')
   call <sid>X('TabLine',      s:none,          s:none,    'none')
   call <sid>X('TabLineFill',  s:mono_3,        s:none,    'none')
@@ -890,3 +891,4 @@ if exists('s:dark') && s:dark
 endif
 
 " vim: set fdl=0 fdm=marker:
+"

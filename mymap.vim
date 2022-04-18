@@ -36,9 +36,9 @@ set encoding =utf-8
 " indent 
 set expandtab
 set autoindent
-set shiftwidth =2
-set tabstop =2
-set softtabstop =2
+set shiftwidth =4
+set tabstop =4
+set softtabstop =4
 set cursorline
 set wrap
 set hlsearch
@@ -47,11 +47,11 @@ set hlsearch
 set cmdheight=1
 
 " colors
-colorscheme one
+colorscheme nightfox
 set termguicolors
 " colorscheme industry
 " colorscheme OceanicNext
-highlight Normal guibg=none ctermbg=none 
+" highlight Normal guibg=NONE guisp=NONE
 " highlight the yanked text
 augroup LuaHighlight
     autocmd!
@@ -160,7 +160,6 @@ augroup LuaHighlight
     nmap <silent><leader>S :source $MYVIMRC<cr>
     nmap <BS> <Del>
     nnoremap <silent><C-x> :tabclose<cr>
-    inoremap jk <esc>
     inoremap qi <esc>
     nnoremap <leader>m %
     autocmd FileType vim setlocal foldmethod=marker
@@ -168,6 +167,7 @@ augroup LuaHighlight
     " edit vimrc
     nnoremap <leader>ev :edit $MYVIMRC<cr>
     nnoremap <leader>em :edit ~/.config/nvim/mymap.vim<cr>
+    nnoremap <leader>el :edit ~/.config/nvim/vimfiles/lspconfig.vim<cr>
     nnoremap <leader>es :edit ~/.config/nvim/plugvim/vimspector.vim<cr>
     nnoremap <leader>ea :edit ~/.config/nvim/plugvim/vim-airline.vim<cr>
     nnoremap <leader>qq :wqa!<cr>
