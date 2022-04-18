@@ -230,6 +230,6 @@
   "highlight.document.enable": true,
   "clangd.enabled": true,
   "clangd.arguments": [],
-  "clangd.fallbackFlags": [],
+  "clangd.fallbackFlags": ["-std=c++17"],
   "clangd.checkUpdates": true
 }

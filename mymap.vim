@@ -2,15 +2,15 @@ set nocompatible
 filetype off 
 syntax on
 
-" set foldmethod=syntax
 " split a window to show substitute
 set inccommand=split
 set updatetime=2000
 set timeoutlen=700
 
+set foldmethod=expr
 " enable mouse
 " set mouse=nv
-
+set foldcolumn=1
 " line number
 set number numberwidth =6
 " set nonu
@@ -65,11 +65,12 @@ augroup LuaHighlight
     " open current buffer in a new tab
     function! OpenBufInNewTab()
       let l:nowbuf = bufnr()
-      let l:line = line(".")
+      let l:curpos = getcurpos()
       :tabnew
       execute "buf". nowbuf
-      call cursor(line, 0)
+      call cursor(curpos[1], curpos[2])
       unlet nowbuf
+      unlet curpos
     endfunction
 
     " tab 
@@ -164,6 +165,11 @@ augroup LuaHighlight
     nnoremap <leader>m %
     autocmd FileType vim setlocal foldmethod=marker
 
+    " terminal
+    nnoremap <leader>tb :split<cr><C-w>b:terminal<cr>
+    tnoremap <C-\> <C-\><C-n>
+    tnoremap <C-n> <Up>
+
     " edit vimrc
     nnoremap <leader>ev :edit $MYVIMRC<cr>
     nnoremap <leader>em :edit ~/.config/nvim/mymap.vim<cr>
@@ -190,8 +196,5 @@ augroup LuaHighlight
     " Session
     nnoremap <leader>se :mks! session.vim<cr>
     nnoremap <leader>sl :source session.vim<cr>
-" }}}
 
 " help me ajust to use 'jk' to escapy insert mode
-
-" }
