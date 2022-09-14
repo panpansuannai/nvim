@@ -38,9 +38,8 @@ lua <<EOF
                     if(cmp.get_selected_entry())
                     then
                         cmp.abort()
-                    else
-                        fallback()
                     end
+                    fallback()
                 end),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
@@ -56,7 +55,7 @@ lua <<EOF
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
     }, {
-      { name = 'buffer' },
+      -- { name = 'buffer' },
     })
   })
 

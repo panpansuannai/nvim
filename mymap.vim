@@ -47,7 +47,7 @@ set hlsearch
 set cmdheight=1
 
 " colors
-colorscheme nightfox
+colorscheme tokyonight-night
 set termguicolors
 " colorscheme industry
 " colorscheme OceanicNext

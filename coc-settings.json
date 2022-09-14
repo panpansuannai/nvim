@@ -176,7 +176,7 @@
       "gotoParent"
     ]
   },
-  "git.enableGutters": true,
+  "git.enableGutters": false,
   "git.enableGlobalStatus": false,
   "git.addGBlameToVirtualText": false,
   "git.virtualTextPrefix": " @:",

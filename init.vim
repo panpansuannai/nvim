@@ -62,6 +62,13 @@ Plug 'EdenEast/nightfox.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'fatih/vim-go'
+Plug 'ray-x/go.nvim'
+Plug 'ray-x/guihua.lua'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 call plug#end()
 
 
