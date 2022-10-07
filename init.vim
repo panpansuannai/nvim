@@ -69,6 +69,8 @@ Plug 'ray-x/guihua.lua'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'onsails/lspkind.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 call plug#end()
 
 

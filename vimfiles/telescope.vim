@@ -42,4 +42,6 @@ nnoremap <leader>tg :Telescope live_grep<cr>
 nnoremap <leader>tb :Telescope buffers<cr>
 nnoremap <leader>tw :Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <leader>td :Telescope lsp_document_symbols<cr>
+nnoremap <leader>tI :Telescope lsp_incoming_calls<cr>
+nnoremap <leader>tO :Telescope lsp_outcoming_calls<cr>
 nnoremap <leader>t :Telescope<cr>

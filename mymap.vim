@@ -1,3 +1,4 @@
+set laststatus=3
 set nocompatible
 filetype off 
 syntax on

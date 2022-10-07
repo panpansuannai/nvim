@@ -55,7 +55,7 @@ lua <<EOF
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
     }, {
-      -- { name = 'buffer' },
+    { name = 'nvim_lsp_signature_help' }
     })
   })
 
@@ -83,4 +83,19 @@ lua <<EOF
       { name = 'cmdline' }
     })
   })
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function (entry, vim_item)
+        return vim_item
+      end
+    })
+  }
+}
 EOF
