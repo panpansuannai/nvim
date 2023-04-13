@@ -13,31 +13,33 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',
-        '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+        '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',
         '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'H',
         '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
         '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>li',
-        '<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lo',
-        '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa',
         '<cmd>lua vim.lsp.buf.add_workleader_folder()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr',
         '<cmd>lua vim.lsp.buf.remove_workleader_folder()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',
         '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workleader_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gt',
         '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn',
-        '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca',
         '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f',
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf',
         '<cmd>lua vim.lsp.buf.formatting({tabSize = 4})<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr',
+        '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>li',
+        '<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lo',
+        '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ls',
+        '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -64,10 +66,14 @@ vim.diagnostic.config({
 })
 
 -- language servier configs
-require'lspconfig'.gopls.setup{}
-require('go').setup()
+require'lspconfig'.gopls.setup{
+    single_file_support = true,
+    on_attach = on_attach
+}
+-- require('go').setup()
 require'lspconfig'.clangd.setup{}
 EOF
+
 sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
 sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
 sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
