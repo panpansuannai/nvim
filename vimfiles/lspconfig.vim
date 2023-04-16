@@ -72,6 +72,13 @@ require'lspconfig'.gopls.setup{
 }
 -- require('go').setup()
 require'lspconfig'.clangd.setup{}
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+       buffer = buffer,
+       callback = function()
+           vim.lsp.buf.format { async = true}
+       end
+   })
 EOF
 
 sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=

@@ -23,7 +23,6 @@ lua <<EOF
 
                 if (check_back_char())
                 then
-                    print("fallback")
                     fallback()
                 elseif (cmp.visible())
                 then
