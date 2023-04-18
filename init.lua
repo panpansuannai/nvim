@@ -36,9 +36,11 @@ vim.cmd("Plug 'simrat39/symbols-outline.nvim'")
 vim.cmd("Plug 'itchyny/vim-cursorword'")
 
 -- Themes.
-vim.cmd("Plug 'glepnir/galaxyline.nvim'")
 vim.cmd("Plug 'folke/tokyonight.nvim'")
 -- vim.cmd("Plug 'EdenEast/nightfox.nvim'")
+
+-- StatusLine.
+vim.cmd("Plug 'glepnir/galaxyline.nvim'")
 
 -- Icons.
 vim.cmd("Plug 'kyazdani42/nvim-web-devicons'")
