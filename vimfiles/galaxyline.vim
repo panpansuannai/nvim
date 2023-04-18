@@ -1,1 +1,1 @@
-lua require('idelike')
+lua require('themes/idelike')

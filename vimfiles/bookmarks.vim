@@ -18,8 +18,8 @@ highlight link BookmarkAnnotationLine CursorLine
 
 " default key map
 let g:bookmark_no_default_key_mappings = 0
-let g:bookmark_sign = 'B'
-let g:bookmark_annotation_sign = 'B*' 
+let g:bookmark_sign = ''
+let g:bookmark_annotation_sign = '' 
 let g:bookmark_save_per_working_dir = 0
 let g:bookmark_show_toggle_warning = 0
 let g:bookmark_auto_save = 0
