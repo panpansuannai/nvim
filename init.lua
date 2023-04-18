@@ -41,12 +41,13 @@ vim.cmd("Plug 'folke/tokyonight.nvim'")
 
 -- StatusLine.
 vim.cmd("Plug 'glepnir/galaxyline.nvim'")
+vim.cmd("Plug 'nvim-lua/lsp-status.nvim'")
 
 -- Icons.
 vim.cmd("Plug 'kyazdani42/nvim-web-devicons'")
 
 -- Other.
-vim.cmd("Plug 'nvim-lua/plenary.nvim'")  -- require by telescope
+vim.cmd("Plug 'nvim-lua/plenary.nvim'") -- require by telescope
 vim.cmd("Plug 'tpope/vim-surround'")
 -- vim.cmd("Plug 'fatih/vim-go'")
 -- vim.cmd("Plug 'ray-x/go.nvim'")

@@ -227,11 +227,24 @@ table.insert(gls.right, {
     }
 })
 
+table.insert(gls.right, {
+    Lsp = {
+        provider = function()
+            return '「'..vim.lsp.buf_get_clients()[1].name..'」'
+        end,
+        condition = function()
+            return vim.tbl_count(vim.lsp.buf_get_clients()) > 0
+        end,
+        -- seperator = " ",
+        highlight = { colors.purple, colors.bg , 'bold'}
+    }
+})
+
 
 table.insert(gls.right, {
     LineInfo = {
         provider = 'LineColumn',
-        separator = '  ',
+        -- separator = ' ',
         separator_highlight = { 'NONE', colors.bg },
         highlight = { colors.purple, colors.bg }
     }
