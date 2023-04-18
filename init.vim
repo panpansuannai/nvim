@@ -71,6 +71,8 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'onsails/lspkind.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvimdev/lspsaga.nvim'
 call plug#end()
 
 

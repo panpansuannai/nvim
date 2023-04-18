@@ -54,4 +54,4 @@ vim.g.symbols_outline = {
 }
 EOF
 
-nnoremap <leader>o :SymbolsOutline<cr>
+" nnoremap <leader>o :SymbolsOutline<cr>

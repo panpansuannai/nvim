@@ -50,5 +50,5 @@ lua << EOF
     -- refer to the configuration section below
   }
 EOF
-nnoremap gr :TroubleToggle lsp_references<CR>
+" nnoremap gr :TroubleToggle lsp_references<CR>
 nnoremap dl :TroubleToggle document_diagnostics<cr>
