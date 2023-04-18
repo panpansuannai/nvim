@@ -1,4 +1,3 @@
-lua << EOF
 require("symbols-outline").setup()
 vim.g.symbols_outline = {
     highlight_hovered_item = true,
@@ -52,6 +51,4 @@ vim.g.symbols_outline = {
         TypeParameter = {icon = "𝙏", hl = "TSParameter"}
     }
 }
-EOF
-
-" nnoremap <leader>o :SymbolsOutline<cr>
+vim.keymap.set('n', "<leader>o", '<cmd>SymbolsOutline<cr>', { unique =  true})

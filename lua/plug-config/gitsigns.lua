@@ -1,4 +1,3 @@
-lua << EOF
 require('gitsigns').setup {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
@@ -40,14 +39,13 @@ require('gitsigns').setup {
     enable = false
   },
 }
-EOF
-nnoremap <leader>gp :Gitsigns preview_hunk<cr>
-nnoremap <leader>gk :Gitsigns prev_hunk<cr>
-nnoremap <leader>gj :Gitsigns next_hunk<cr>
-nnoremap <leader>gd :Gitsigns diffthis<cr>
-nnoremap <leader>gl :Gitsigns setqflist<cr>
-nnoremap <leader>gb :Gitsigns toggle_current_line_blame<cr>
-nnoremap <leader>gs :Gitsigns stage_hunk<cr>
-nnoremap <leader>gS :Gitsigns stage_buffer<cr>
-nnoremap <leader>gu :Gitsigns undo_stage_hunk<cr>
-nnoremap <leader>g<space> :Gitsigns select_hunk<cr>
+vim.keymap.set('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gk', '<cmd>Gitsigns prev_hunk<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gj', '<cmd>Gitsigns next_hunk<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gd', '<cmd>Gitsigns diffthis<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gl', '<cmd>Gitsigns setqflist<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gs', '<cmd>Gitsigns stage_hunk<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gS', '<cmd>Gitsigns stage_buffer<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gu', '<cmd>Gitsigns undo_stage_hunk<cr>', { unique = true})
+vim.keymap.set('n', '<leader>g<space>', '<cmd>Gitsigns select_hunk<cr>', { unique = true})

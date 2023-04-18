@@ -1,4 +1,3 @@
-lua << EOF
 local actions = require("telescope.actions")
 require('telescope').setup{
   defaults = {
@@ -36,12 +35,7 @@ require('telescope').setup{
     -- please take a look at the readme of the extension you want to configure
   }
 }
-EOF
-nnoremap <leader>tf :Telescope find_files<cr>
-nnoremap <leader>tg :Telescope live_grep<cr>
-nnoremap <leader>tb :Telescope buffers<cr>
-nnoremap <leader>tw :Telescope lsp_dynamic_workspace_symbols<cr>
-nnoremap <leader>td :Telescope lsp_document_symbols<cr>
-nnoremap <leader>tI :Telescope lsp_incoming_calls<cr>
-nnoremap <leader>tO :Telescope lsp_outcoming_calls<cr>
-nnoremap <leader>t :Telescope<cr>
+vim.keymap.set('n', '<leader>tf', function() require('telescope.builtin').find_files() end, { unique = true})
+vim.keymap.set('n', '<leader>tg', function() require('telescope.builtin').live_grep() end, { unique = true})
+vim.keymap.set('n', '<leader>tb', function() require('telescope.builtin').buffers() end, { unique = true})
+vim.keymap.set('n', '<leader>tr', function() require('telescope.builtin').treesitter() end, { unique = true})

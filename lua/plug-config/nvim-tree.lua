@@ -1,4 +1,3 @@
-lua << EOF
 local api = require('nvim-tree.api')
 vim.keymap.set('n', '<C-n>', api.tree.toggle, {})
 require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
@@ -241,4 +240,3 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
     },
   },
 } -- END_DEFAULT_OPTS
-EOF

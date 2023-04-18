@@ -1,6 +1,5 @@
-lua << EOF
   require("trouble").setup {
-    position = "right", -- position of the list can be: bottom, top, left, right
+    position = "bottom", -- position of the list can be: bottom, top, left, right
     height = 6, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
     icons = true, -- use devicons for filenames
@@ -49,6 +48,4 @@ lua << EOF
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-EOF
-" nnoremap gr :TroubleToggle lsp_references<CR>
-nnoremap dl :TroubleToggle document_diagnostics<cr>
+vim.keymap.set('n', 'dl', '<cmd>TroubleToggle document_diagnostics<cr>', { unique = true})

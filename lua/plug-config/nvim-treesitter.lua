@@ -1,4 +1,3 @@
-lua << EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {'c', 'cpp','json', 'lua', 'python', 'bash'},
   highlight = {
@@ -17,5 +16,3 @@ hlmap.error = nil
 hlmap["punctuation.delimiter"] = "Delimiter"
 hlmap["punctuation.bracket"] = nil
 --]]
-EOF
-nnoremap zt :set foldexpr=nvim_treesitter#foldexpr()<cr>

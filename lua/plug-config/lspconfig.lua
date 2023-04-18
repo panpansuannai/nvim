@@ -1,4 +1,3 @@
-lua << EOF
 local opts = { noremap=true, silent=true }
 vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 vim.api.nvim_set_keymap('n', '[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -73,24 +72,6 @@ local on_attach = function(client, bufnr)
   end
 end
 
---[[
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'rust_analyzer', 'tsserver', 'clangd'}
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    },
-    capabilities = capabilities
-  }
-end
-]]--
-
 -- Diagnostic
 vim.diagnostic.config({
     update_in_insert = true,
@@ -136,9 +117,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
            vim.lsp.buf.format { async = true}
        end
    })
-EOF
-
+--[[
 sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
 sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
 sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
 sign define DiagnosticSignHint text=💡 texthl=DiagnosticSignHint linehl= numhl=
+--]]
