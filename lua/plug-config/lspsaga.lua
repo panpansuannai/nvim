@@ -31,4 +31,16 @@ return {
             exec = "<CR>",
         },
     },
+      callhierarchy = {
+        show_detail = false,
+        keys = {
+          edit = "o",
+          vsplit = "s",
+          split = "i",
+          tabe = "t",
+          jump = "e",
+          quit = "q",
+          expand_collapse = "u",
+        },
+      },
 }

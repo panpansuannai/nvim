@@ -1,12 +1,20 @@
 local opts = { noremap = true, silent = true }
+
 vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 vim.api.nvim_set_keymap('n', '[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 vim.api.nvim_set_keymap('n', ']g', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
+local setkeymap = false
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+    vim.notify("Client name: ".. client.name, "info", {
+        title = "lspconfig on_attach",
+        timeout = 1000
+    })
+
+    -- Format on save.
     vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
@@ -14,9 +22,6 @@ local on_attach = function(client, bufnr)
         end
     })
 
-    local lspstatus = require('lsp-status')
-    lspstatus.register_progress()
-    lspstatus.on_attach(client)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

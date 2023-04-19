@@ -46,6 +46,9 @@ vim.cmd("Plug 'nvim-lua/lsp-status.nvim'")
 -- Icons.
 vim.cmd("Plug 'kyazdani42/nvim-web-devicons'")
 
+-- Notification.
+vim.cmd("Plug 'rcarriga/nvim-notify'")
+
 -- Other.
 vim.cmd("Plug 'nvim-lua/plenary.nvim'") -- require by telescope
 vim.cmd("Plug 'tpope/vim-surround'")
@@ -65,5 +68,6 @@ require("plug-config/nvim-cmp")
 require("plug-config/symbols-outline")
 require("plug-config/gitsigns")
 require('plug-config/bookmarks')
+require('plug-config/nvim-notify')
 -- Themes
 require('themes/idelike')
