@@ -1,5 +1,13 @@
 local api = require('nvim-tree.api')
 vim.keymap.set('n', '<C-n>', api.tree.toggle, {})
+vim.keymap.set('n', '<C-m>', function() 
+    api.tree.toggle{
+        -- path = path,
+        find_file = true,
+        update_root = true
+
+    }
+end, {})
 require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
   disable_netrw = false,

@@ -5,15 +5,9 @@ vim.api.nvim_set_keymap('n', '[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', op
 vim.api.nvim_set_keymap('n', ']g', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-local setkeymap = false
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    vim.notify("Client name: ".. client.name, "info", {
-        title = "lspconfig on_attach",
-        timeout = 1000
-    })
-
     -- Format on save.
     vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
@@ -27,43 +21,35 @@ local on_attach = function(client, bufnr)
 
     if require 'utils.check'.checkPlug('lspsaga.nvim') then
         require('lspsaga').setup(require('plug-config.lspsaga'))
+        --[[
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',
             '<cmd>Lspsaga lsp_finder<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',
             '<cmd>tab split | Lspsaga goto_definition<CR>', opts)
+            ]]--
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>d',
             '<cmd>Lspsaga peek_definition<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',
-            '<cmd>Lspsaga goto_definition<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'H',
             '<cmd>Lspsaga hover_doc<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
-            '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>la',
             '<cmd>Lspsaga code_action<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf',
             '<cmd>lua vim.lsp.buf.format()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr',
             '<cmd>Lspsaga rename<CR>', opts)
+        --[[ Telescope do this
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>li',
             '<cmd>Lspsaga incoming_calls<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lo',
             '<cmd>Lspsaga outcoming_calls<CR>', opts)
+        --]]
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o',
             '<cmd>Lspsaga outline<CR>', opts)
     else
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',
-            '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',
-            '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',
-            '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'H',
             '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
-            '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa',
             '<cmd>lua vim.lsp.buf.add_workleader_folder()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr',
@@ -89,6 +75,7 @@ end
 
 -- Diagnostic
 vim.diagnostic.config({
+    float = {},
     update_in_insert = true,
     virtual_text = {
         prefix = ''
@@ -101,8 +88,9 @@ require 'lspconfig'.gopls.setup {
     on_attach = on_attach
 }
 -- require('go').setup()
-require 'lspconfig'.clangd.setup {}
+-- require 'lspconfig'.clangd.setup {}
 
+--[[
 require 'lspconfig'.lua_ls.setup {
     settings = {
         Lua = {
@@ -125,6 +113,7 @@ require 'lspconfig'.lua_ls.setup {
         },
     },
 }
+]]--
 --[[
 sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
 sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=

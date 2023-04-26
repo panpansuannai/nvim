@@ -5,7 +5,7 @@ vim.fn["plug#begin"]()
 -- Lsp support.
 vim.cmd("Plug 'neovim/nvim-lspconfig'")
 vim.cmd("Plug 'folke/trouble.nvim'")
-vim.cmd("Plug 'nvimdev/lspsaga.nvim'")
+-- vim.cmd("Plug 'nvimdev/lspsaga.nvim'")
 
 -- Complete.
 vim.cmd("Plug 'hrsh7th/cmp-nvim-lsp-signature-help'")
