@@ -1,6 +1,6 @@
 local api = require('nvim-tree.api')
 vim.keymap.set('n', '<C-n>', api.tree.toggle, {})
-vim.keymap.set('n', '<C-m>', function() 
+vim.keymap.set('n', '<C-b>', function() 
     api.tree.toggle{
         -- path = path,
         find_file = true,
@@ -8,10 +8,11 @@ vim.keymap.set('n', '<C-m>', function()
 
     }
 end, {})
+
 require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
   auto_reload_on_write = true,
-  disable_netrw = false,
-  hijack_cursor = false,
+  disable_netrw = true,
+  hijack_cursor = true,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   sort_by = "name",

@@ -37,7 +37,6 @@ vim.o.hlsearch = true
 vim.o.cmdheight = 1
 
 -- colors
-vim.cmd("colorscheme tokyonight-night")
 vim.o.termguicolors = true
 -- colorscheme industry
 -- colorscheme OceanicNext
@@ -60,7 +59,7 @@ vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>')
 
 -- window
 vim.keymap.set('n', '<leader>wv', '<C-w>v<C-w>l')
-vim.keymap.set('n', '<leader>ws', '<C-w>v<C-w>j')
+vim.keymap.set('n', '<leader>ws', '<C-w>s<C-w>j')
 vim.keymap.set('n', '<leader>wh', '<C-w>h')
 vim.keymap.set('n', '<leader>wl', '<C-w>l')
 vim.keymap.set('n', '<leader>wj', '<C-w>j')

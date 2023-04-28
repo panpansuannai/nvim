@@ -47,5 +47,5 @@ vim.keymap.set('n', '<leader>gl', '<cmd>Gitsigns setqflist<cr>', { unique = true
 vim.keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', { unique = true})
 vim.keymap.set('n', '<leader>gs', '<cmd>Gitsigns stage_hunk<cr>', { unique = true})
 vim.keymap.set('n', '<leader>gS', '<cmd>Gitsigns stage_buffer<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gu', '<cmd>Gitsigns undo_stage_hunk<cr>', { unique = true})
+vim.keymap.set('n', '<leader>gu', '<cmd>Gitsigns reset_hunk<cr>', { unique = true})
 vim.keymap.set('n', '<leader>g<space>', '<cmd>Gitsigns select_hunk<cr>', { unique = true})
