@@ -6,7 +6,8 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = {
     enable = true,
-  }
+  },
+  parser_install_dir = vim.fn.stdpath('config')
 }
 --[[
 -- integrate with rainbow

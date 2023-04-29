@@ -9,9 +9,11 @@ vim.keymap.set('n', 'gK', function() vim.diagnostic.goto_prev() end, opts)
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
     pattern="*", callback=function() 
         client = vim.lsp.buf_get_clients()[1]
-        vim.notify("Server ready! ", "info", {
-            title = client.name
-        })
+        if client ~= nil then
+            vim.notify("Server ready! ", "info", {
+                title = client.name
+            })
+        end
 end, once=true})
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer

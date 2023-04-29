@@ -1,4 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('global-config')
-require('lazy').setup{
+require('lazy').setup({
     -- LSP
     { 'neovim/nvim-lspconfig', config = function() require('plug-config/lspconfig') end},
     { 'folke/trouble.nvim', config = function() require('plug-config/trouble') end},
@@ -31,12 +31,12 @@ require('lazy').setup{
         'onsails/lspkind.nvim', -- require by nvim-cmp configuration
     }, config = function() require('plug-config/nvim-cmp') end },
 
-    -- Git
-    { 'lewis6991/gitsigns.nvim', config = function() require('plug-config/gitsigns') end },
-
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', config=function() require('plug-config/nvim-treesitter') end },
-    { 'nvim-treesitter/nvim-treesitter-context', config = function() require('plug-config/treesitter-context') end },
+    -- { 'nvim-treesitter/nvim-treesitter-context', config = function() require('plug-config/treesitter-context') end },
+
+    -- Git
+    { 'lewis6991/gitsigns.nvim', config = function() require('plug-config/gitsigns') end },
 
     -- File Explore
     {'kyazdani42/nvim-tree.lua', config=function() require('plug-config/nvim-tree') end},
@@ -71,4 +71,6 @@ require('lazy').setup{
     -- 'fatih/vim-go',
     -- 'ray-x/go.nvim',
     -- 'ray-x/guihua.lua',
-}
+}, {
+    root = vim.fn.stdpath('config').."/lazy"
+})
