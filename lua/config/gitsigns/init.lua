@@ -1,13 +1,17 @@
+M = {}
+M.setup = function()
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add          = {hl = 'GitSignsAdd'   , text = '▊', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '▊', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    untracked    = {hl = 'GitSignsUntracked',  text = '┆', numhl='GitSignsUntrackedNr', linehl='GitSignsUntrackedLn'},
     delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+
     topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   watch_gitdir = {
@@ -39,13 +43,5 @@ require('gitsigns').setup {
     enable = false
   },
 }
-vim.keymap.set('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gk', '<cmd>Gitsigns prev_hunk<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gj', '<cmd>Gitsigns next_hunk<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gd', '<cmd>Gitsigns diffthis<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gl', '<cmd>Gitsigns setqflist<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gs', '<cmd>Gitsigns stage_hunk<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gS', '<cmd>Gitsigns stage_buffer<cr>', { unique = true})
-vim.keymap.set('n', '<leader>gu', '<cmd>Gitsigns reset_hunk<cr>', { unique = true})
-vim.keymap.set('n', '<leader>g<space>', '<cmd>Gitsigns select_hunk<cr>', { unique = true})
+end
+return M

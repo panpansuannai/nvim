@@ -1,22 +1,18 @@
-vim.notify = require('notify')
-vim.notify.setup{
-    background_colour = "NotifyBackground",
-    fps = 30,
-    icons = {
-      DEBUG = "",
-      ERROR = "",
-      INFO = "",
-      TRACE = "✎",
-      WARN = ""
-    },
-    level = 2,
-    minimum_width = 50,
-    render = "default",
-    stages = "fade_in_slide_out",
-    timeout = 3000,
-    top_down = true
+return {
+    setup = function()
+        vim.notify = require('notify')
+        vim.notify.setup {
+            background_colour = "#000000",
+            fps = 60,
+            level = 2,
+            minimum_width = 50,
+            render = "default",
+            stages = "fade_in_slide_out",
+            timeout = 5000,
+            top_down = false
+        }
+    end
 }
-
 -- Example.
 --[[
 local plugin = "My Awesome Plugin"
@@ -41,4 +37,4 @@ vim.notify("This is an error message.\nSomething went wrong!", "error", {
   end,
   render = 'default'
 })
-]]--
+]]
