@@ -63,7 +63,10 @@ require('lazy').setup({
             require('config.bookmarks')
         end
     },
-    { 'nvim-telescope/telescope.nvim', config = function() require('config.telescope').setup() end },
+    { 'nvim-telescope/telescope.nvim', dependencies = {
+        'smartpde/telescope-recent-files'
+    },
+        config = function() require('config.telescope').setup() end },
     { 'simrat39/symbols-outline.nvim', config = function() require('config.symbols-outline') end },
     'itchyny/vim-cursorword',
     {
@@ -78,6 +81,7 @@ require('lazy').setup({
         dependencies = {
             'kyazdani42/nvim-web-devicons',
             'nvim-treesitter/nvim-treesitter',
+            'neovim/nvim-lspconfig'
         },
         config = function() require('themes/idelike') end
     },
@@ -102,6 +106,9 @@ require('lazy').setup({
     -- Notification.
     {
         'rcarriga/nvim-notify',
+        dependencies = {
+            "rebelot/kanagawa.nvim"
+        },
         config = function()
             require('config.nvim-notify').setup()
         end

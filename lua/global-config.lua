@@ -51,7 +51,6 @@ augroup LuaHighlight
 
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>tt', '<cmd>tabnew<cr>')
-vim.keymap.set('n', '<leader>te', '<cmd>tabe<cr>')
 vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>')
 vim.keymap.set('n', '<leader>tl', '<cmd>tabnext<cr>')
 vim.keymap.set('n', '<leader>th', '<cmd>tabprevious<cr>')

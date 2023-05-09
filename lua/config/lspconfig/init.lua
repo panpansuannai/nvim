@@ -1,5 +1,3 @@
-local opts = { noremap = true, silent = true }
-
 -- Diagnostic
 vim.cmd [[sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=]]
 vim.cmd [[sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=]]
@@ -50,7 +48,7 @@ local on_attach = function(client, bufnr)
             vim.lsp.buf.format { async = true }
         end
     })
-    vim.api.nvim_create_autocmd("CursorHold", {
+    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
         buffer = bufnr,
         callback = function(ev)
             local pos = vim.lsp.util.make_position_params()

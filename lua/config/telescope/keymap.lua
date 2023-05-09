@@ -1,6 +1,7 @@
 return {
     setup = function()
         vim.keymap.set('n', '<leader>tf', function() require('telescope.builtin').find_files() end, {unique = true})
+        vim.keymap.set('n', '<leader>te', function() require('telescope').extensions.recent_files.pick() end, {unique = true})
         vim.keymap.set('n', '<leader>tg', function() require('telescope.builtin').live_grep() end, { unique = true })
         vim.keymap.set('n', '<leader>tb', function() require('telescope.builtin').buffers() end, { unique = true })
         vim.keymap.set('n', '<leader>tp', function() require('telescope.builtin').treesitter() end, { unique = true })
