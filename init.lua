@@ -51,6 +51,7 @@ require('lazy').setup({
     -- { 'nvim-treesitter/nvim-treesitter-context', config = function() require('config.treesitter-context') end },
 
     -- Git
+    { 'kdheepak/lazygit.nvim'},
     { 'lewis6991/gitsigns.nvim',         config = function() require('config.gitsigns').setup() end },
 
     -- File Explore
