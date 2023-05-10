@@ -39,6 +39,27 @@ else
 end
 ]]
 --
+local function cursor_hold_callback(bufnr, ev)
+    local pos = vim.lsp.util.make_position_params()
+    vim.lsp.buf_request(bufnr, 'textDocument/hover', pos, function(_, result, ctx, config)
+        if result ~= nil and result.contents ~= nil then
+            if vim.lsp.util.make_position_params().position.line ~= pos.position.line then
+                return
+            end
+            vim.notify("", vim.lsp.log_levels.INFO, {
+                title = 'Hover',
+                onopen = function(win)
+                    vim.api.nvim_win_set_option(win, 'wrap', true)
+                end,
+                render = function(buf, _)
+                    local md_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+                    vim.api.nvim_buf_set_lines(buf, 0, -1, false, md_lines)
+                    vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown')
+                end
+            })
+        end
+    end)
+end
 
 local on_attach = function(client, bufnr)
     -- Format on save.
@@ -48,28 +69,10 @@ local on_attach = function(client, bufnr)
             vim.lsp.buf.format { async = true }
         end
     })
-    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = bufnr,
         callback = function(ev)
-            local pos = vim.lsp.util.make_position_params()
-            vim.lsp.buf_request(bufnr, 'textDocument/hover', pos, function(_, result, ctx, config)
-                if result ~= nil and result.contents ~= nil then
-                    if vim.lsp.util.make_position_params().position.line ~= pos.position.line then
-                        return
-                    end
-                    vim.notify("", vim.lsp.log_levels.INFO, {
-                        title = 'Hover',
-                        onopen = function(win)
-                            vim.api.nvim_win_set_option(win, 'wrap', true)
-                        end,
-                        render = function(buf, record)
-                            local md_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-                            vim.api.nvim_buf_set_lines(buf, 0, -1, false, md_lines)
-                            vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown')
-                        end
-                    })
-                end
-            end)
+            return cursor_hold_callback(bufnr, ev)
         end
     })
 end
