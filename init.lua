@@ -167,5 +167,6 @@ require('lazy').setup({
 require('config.lspconfig.keymap').setup()
 require('config.telescope.keymap').setup()
 require('config.gitsigns.keymap').setup()
+require('config.lazygit.keymap').setup()
 require('config.nvim-code-action-menu').setup()
 require('config.hop').setup()

@@ -54,6 +54,9 @@ local on_attach = function(client, bufnr)
             local pos = vim.lsp.util.make_position_params()
             vim.lsp.buf_request(bufnr, 'textDocument/hover', pos, function(_, result, ctx, config)
                 if result ~= nil and result.contents ~= nil then
+                    if vim.lsp.util.make_position_params().position.line ~= pos.position.line then
+                        return
+                    end
                     vim.notify("", vim.lsp.log_levels.INFO, {
                         title = 'Hover',
                         onopen = function(win)
