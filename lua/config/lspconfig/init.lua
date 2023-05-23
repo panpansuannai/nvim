@@ -69,12 +69,14 @@ local on_attach = function(client, bufnr)
             vim.lsp.buf.format { async = true }
         end
     })
+    --[[
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = bufnr,
         callback = function(ev)
             return cursor_hold_callback(bufnr, ev)
         end
     })
+    ]]--
 end
 
 -- language servier configs

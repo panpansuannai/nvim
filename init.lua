@@ -82,7 +82,8 @@ require('lazy').setup({
         dependencies = {
             'kyazdani42/nvim-web-devicons',
             'nvim-treesitter/nvim-treesitter',
-            'neovim/nvim-lspconfig'
+            'neovim/nvim-lspconfig',
+            'nvim-telescope/telescope.nvim',
         },
         config = function() require('themes/idelike') end
     },
