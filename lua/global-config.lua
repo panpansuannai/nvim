@@ -1,3 +1,4 @@
+vim.o.showtabline = 2
 vim.o.laststatus = 3
 vim.o.compatible = false
 vim.cmd('filetype off')
@@ -40,7 +41,7 @@ vim.o.cmdheight = 1
 vim.o.termguicolors = true
 -- colorscheme industry
 -- colorscheme OceanicNext
--- highlight Normal guibg=NONE guisp=NONE
+-- vim.cmd[[highlight Normal guibg=NONE guisp=NONE]]
 -- highlight the yanked text
 vim.cmd([[
 augroup LuaHighlight
@@ -55,6 +56,9 @@ vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>')
 vim.keymap.set('n', '<leader>tl', '<cmd>tabnext<cr>')
 vim.keymap.set('n', '<leader>th', '<cmd>tabprevious<cr>')
 vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>')
+vim.keymap.set('n', '<leader>tT', function() 
+    require('utils.tab').copy_current_tab()
+end)
 
 -- window
 vim.keymap.set('n', '<leader>wv', '<C-w>v<C-w>l')

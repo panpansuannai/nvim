@@ -1,4 +1,4 @@
-return {
+table.insert(vim.custom.keymap_modules, {
     setup = function()
         vim.keymap.set('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<cr>', { unique = true })
         vim.keymap.set('n', '<leader>gk', '<cmd>Gitsigns prev_hunk<cr>', { unique = true })
@@ -11,4 +11,4 @@ return {
         vim.keymap.set('n', '<leader>gu', '<cmd>Gitsigns reset_hunk<cr>', { unique = true })
         vim.keymap.set('n', '<leader>g<space>', '<cmd>Gitsigns select_hunk<cr>', { unique = true })
     end
-}
+})

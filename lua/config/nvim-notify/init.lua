@@ -11,7 +11,9 @@ return {
             timeout = 5000,
             top_down = false
         }
-    end
+        require('config.nvim-notify.keymap')
+    end,
+
 }
 -- Example.
 --[[

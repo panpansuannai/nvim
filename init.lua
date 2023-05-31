@@ -11,13 +11,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.custom = {
+    keymap_modules = {}
+}
+
 require('global-config')
 require('lazy').setup({
     -- LSP
-    { 'neovim/nvim-lspconfig',         config = function() require('config.lspconfig') end },
-    { 'folke/trouble.nvim',            config = function() require('config.trouble') end },
-    { 'kosayoda/nvim-lightbulb',       config = function() require('config.nvim-lightbulb') end },
-    { 'weilbith/nvim-code-action-menu' },
+    { 'neovim/nvim-lspconfig',          config = function() require('config.lspconfig').setup() end },
+    { 'folke/trouble.nvim',             config = function() require('config.trouble') end },
+    { 'kosayoda/nvim-lightbulb',        config = function() require('config.nvim-lightbulb') end },
+    { 'weilbith/nvim-code-action-menu', config = function() require('config.nvim-code-action-menu').setup() end },
     {
         'mrded/nvim-lsp-notify',
         dependencies = { 'rcarriga/nvim-notify' },
@@ -36,6 +40,7 @@ require('lazy').setup({
         dependencies = {
             'hrsh7th/cmp-nvim-lsp-signature-help',
             'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
@@ -43,7 +48,7 @@ require('lazy').setup({
             'hrsh7th/vim-vsnip',
             'onsails/lspkind.nvim', -- require by nvim-cmp configuration
         },
-        config = function() require('config.nvim-cmp') end
+        config = function() require('config.nvim-cmp').setup() end
     },
 
     -- Treesitter
@@ -51,7 +56,7 @@ require('lazy').setup({
     -- { 'nvim-treesitter/nvim-treesitter-context', config = function() require('config.treesitter-context') end },
 
     -- Git
-    { 'kdheepak/lazygit.nvim'},
+    { 'kdheepak/lazygit.nvim',           config = function() require('config.lazygit').setup() end },
     { 'lewis6991/gitsigns.nvim',         config = function() require('config.gitsigns').setup() end },
 
     -- File Explore
@@ -64,10 +69,13 @@ require('lazy').setup({
             require('config.bookmarks')
         end
     },
-    { 'nvim-telescope/telescope.nvim', dependencies = {
-        'smartpde/telescope-recent-files'
+    {
+        'nvim-telescope/telescope.nvim',
+        dependencies = {
+            'smartpde/telescope-recent-files'
+        },
+        config = function() require('config.telescope').setup() end
     },
-        config = function() require('config.telescope').setup() end },
     { 'simrat39/symbols-outline.nvim', config = function() require('config.symbols-outline') end },
     'itchyny/vim-cursorword',
     {
@@ -85,13 +93,16 @@ require('lazy').setup({
             'neovim/nvim-lspconfig',
             'nvim-telescope/telescope.nvim',
         },
-        config = function() require('themes/idelike') end
+        config = function() require('config.galaxyline').setup() end
     },
     'nvim-lua/lsp-status.nvim',
 
+    -- Tabline
+    { 'nanozuki/tabby.nvim',           config = function() require('config.tabby').setup() end },
+
     -- Themes.
     { 'folke/tokyonight.nvim' },
-    { "rebelot/kanagawa.nvim", config = function() vim.cmd [[colorscheme kanagawa-wave]] end },
+    { "rebelot/kanagawa.nvim",         config = function() vim.cmd [[colorscheme kanagawa-wave]] end },
     {
         "catppuccin/nvim",
         cond = false,
@@ -108,66 +119,29 @@ require('lazy').setup({
     -- Notification.
     {
         'rcarriga/nvim-notify',
-        dependencies = {
-            "rebelot/kanagawa.nvim"
-        },
-        config = function()
-            require('config.nvim-notify').setup()
-        end
+        dependencies = { "rebelot/kanagawa.nvim" },
+        config = function() require('config.nvim-notify').setup() end
     },
 
     -- Indent.
     {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            vim.opt.termguicolors = true
-            vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
-            vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
-            vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
-            vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
-            vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
-            vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
-
-            vim.opt.list = true
-            vim.opt.listchars:append "space:⋅"
-            vim.opt.listchars:append "eol:↴"
-
-            require("indent_blankline").setup {
-                space_char_blankline = " ",
-                char_highlight_list = {
-                    "IndentBlanklineIndent1",
-                    "IndentBlanklineIndent2",
-                    "IndentBlanklineIndent3",
-                    "IndentBlanklineIndent4",
-                    "IndentBlanklineIndent5",
-                    "IndentBlanklineIndent6",
-                },
-            }
-        end
+        "lukas-reineke/indent-blankline.nvim", config = function() require('config.indent-blankline').setup() end
     },
 
     -- Animation
-    {
-        'echasnovski/mini.animate',
-        version = false,
-        config = function()
-            require('config.mini-animate').setup()
-        end
-    },
+    { 'echasnovski/mini.animate',     version = false,  config = function() require('config.mini-animate').setup() end },
 
     -- Other.
     'nvim-lua/plenary.nvim', -- require by telescope
-    'ii14/neorepl.nvim',
     'tpope/vim-surround',
+    { 'ii14/neorepl.nvim', config = function() require('config.neorepl').setup() end },
 }, {
     root = vim.fn.stdpath('config') .. "/lazy",
     defaults = {
         lazy = false
     },
 })
-require('config.lspconfig.keymap').setup()
-require('config.telescope.keymap').setup()
-require('config.gitsigns.keymap').setup()
-require('config.lazygit.keymap').setup()
-require('config.nvim-code-action-menu').setup()
-require('config.hop').setup()
+
+for _, v in ipairs(vim.custom.keymap_modules) do
+    v.setup()
+end

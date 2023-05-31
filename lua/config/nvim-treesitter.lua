@@ -1,13 +1,13 @@
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {'c', 'cpp','json', 'lua', 'go'},
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlight = false,
-  },
-  indent = {
-    enable = true,
-  },
-  parser_install_dir = vim.fn.stdpath('config')
+require 'nvim-treesitter.configs'.setup {
+    ensure_installed = { 'c', 'cpp', 'json', 'lua', 'go' },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlight = false,
+    },
+    indent = {
+        enable = true,
+    },
+    parser_install_dir = vim.fn.stdpath('config')
 }
 --[[
 -- integrate with rainbow
