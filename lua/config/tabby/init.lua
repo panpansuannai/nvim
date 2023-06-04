@@ -9,6 +9,15 @@ return {
             win = 'TabLine',
             tail = 'TabLine',
         }
+        vim.api.nvim_create_user_command("TabName", function(data)
+            if data.args == "" then
+                vim.notify("Tab name is empty!", vim.log.levels.WARN, {
+                    title = "设置Tab名失败"
+                })
+                return
+            end
+            vim.t.custom_name = data.args
+        end, {})
         require('tabby.tabline').set(function(line)
             return {
                 {
@@ -26,9 +35,20 @@ return {
                             break
                         end
                     end
+                    if vim.t[tab.id] ~= nil and vim.t[tab.id].custom_name ~= nil then
+                        tab_name = vim.t[tab.id].custom_name
+                    end
+                    local auto_close = require('utils.tab').query_tab_auto_close(tab.id)
+                    local icon = ''
+                    if tab.is_current() and auto_close then
+                        icon = ''
+                    else
+                        tab.is_current()
+                        icon = ''
+                    end
                     return {
                         line.sep('', hl, theme.fill),
-                        tab.is_current() and '' or '-',
+                        icon,
                         tab.number(),
                         -- tab.name(),
                         tab_name,

@@ -56,7 +56,7 @@ vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>')
 vim.keymap.set('n', '<leader>tl', '<cmd>tabnext<cr>')
 vim.keymap.set('n', '<leader>th', '<cmd>tabprevious<cr>')
 vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>')
-vim.keymap.set('n', '<leader>tT', function() 
+vim.keymap.set('n', '<leader>tT', function()
     require('utils.tab').copy_current_tab()
 end)
 
@@ -74,7 +74,28 @@ vim.keymap.set('n', '<leader>w.', '5<C-w>>')
 
 -- misc
 vim.keymap.set('n', '<C-l>', '<cmd>nohlsearch<cr>')
-vim.keymap.set('n', '<leader>ev','<cmd>edit $MYVIMRC<cr>')
+vim.keymap.set('n', '<leader>ev', '<cmd>edit $MYVIMRC<cr>')
 vim.keymap.set('n', '<leader>qq', '<cmd>wqa!<cr>')
 vim.keymap.set('n', "<leader>[", '^')
 vim.keymap.set('n', "<leader>]", '$')
+-- 自动关闭Tab
+require('utils.tab').setup_tab_close_when_leave()
+vim.keymap.set('n', 'M', function()
+    local notify = require('notify')
+    local tab = vim.api.nvim_get_current_tabpage()
+    if require('utils.tab').query_tab_auto_close(tab) then
+        require('utils.tab').unset_tab_close_when_leave(tab)
+        notify("取消Tab自动关闭", vim.log.levels.INFO, {
+            title = "通知",
+            timeout = 2000,
+            -- replace = vim.t.auto_close_record,
+        })
+        return
+    end
+    require('utils.tab').set_tab_close_when_leave(tab)
+    notify("Tab自动关闭", vim.log.levels.INFO, {
+        title = "通知",
+        timeout = 2000,
+        -- replace = vim.t.auto_close_record,
+    })
+end)

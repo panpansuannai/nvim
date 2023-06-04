@@ -1,27 +1,37 @@
-local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+do -- Install lazy.nvim plugin manager.
+    local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
+        vim.fn.system({
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git",
+            "--branch=stable", -- latest stable release
+            lazypath,
+        })
+    end
+    vim.opt.rtp:prepend(lazypath)
 end
-vim.opt.rtp:prepend(lazypath)
 
-vim.custom = {
-    keymap_modules = {}
-}
-
-require('global-config')
 require('lazy').setup({
     -- LSP
-    { 'neovim/nvim-lspconfig',          config = function() require('config.lspconfig').setup() end },
-    { 'folke/trouble.nvim',             config = function() require('config.trouble') end },
-    { 'kosayoda/nvim-lightbulb',        config = function() require('config.nvim-lightbulb') end },
-    { 'weilbith/nvim-code-action-menu', config = function() require('config.nvim-code-action-menu').setup() end },
+    {
+        'neovim/nvim-lspconfig',
+        config = function()
+            require('config.lspconfig').setup()
+            require('utils.keymap').register_module(require('config.lspconfig.keymap'))
+        end
+    },
+    { 'folke/trouble.nvim',      config = function() require('config.trouble') end },
+    { 'kosayoda/nvim-lightbulb', config = function() require('config.nvim-lightbulb') end },
+    {
+        'weilbith/nvim-code-action-menu',
+        config = function()
+            local mod = require('config.nvim-code-action-menu')
+            mod.setup()
+            require('utils.keymap').register_module(mod)
+        end
+    },
     {
         'mrded/nvim-lsp-notify',
         dependencies = { 'rcarriga/nvim-notify' },
@@ -56,11 +66,23 @@ require('lazy').setup({
     -- { 'nvim-treesitter/nvim-treesitter-context', config = function() require('config.treesitter-context') end },
 
     -- Git
-    { 'kdheepak/lazygit.nvim',           config = function() require('config.lazygit').setup() end },
-    { 'lewis6991/gitsigns.nvim',         config = function() require('config.gitsigns').setup() end },
+    {
+        'kdheepak/lazygit.nvim',
+        config = function()
+            local lazygit = require('config.lazygit')
+            require('utils.keymap').register_module(lazygit)
+        end
+    },
+    {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('config.gitsigns').setup()
+            require('utils.keymap').register_module(require('config.gitsigns.keymap'))
+        end
+    },
 
     -- File Explore
-    { 'kyazdani42/nvim-tree.lua',        config = function() require('config.nvim-tree') end },
+    { 'kyazdani42/nvim-tree.lua',      config = function() require('config.nvim-tree') end },
 
     -- Navigation.
     {
@@ -74,14 +96,22 @@ require('lazy').setup({
         dependencies = {
             'smartpde/telescope-recent-files'
         },
-        config = function() require('config.telescope').setup() end
+        config = function()
+            local mod = require('config.telescope')
+            mod.setup()
+            require('utils.keymap').register_module(require('config.telescope.keymap'))
+        end
     },
     { 'simrat39/symbols-outline.nvim', config = function() require('config.symbols-outline') end },
     'itchyny/vim-cursorword',
     {
         'phaazon/hop.nvim',
         branch = 'v2', -- optional but strongly recommended
-        config = function() require('hop').setup() end
+        config = function()
+            local hop = require('config.hop')
+            hop.setup()
+            require('utils.keymap').register_module(hop)
+        end
     },
 
     -- StatusLine.
@@ -98,11 +128,11 @@ require('lazy').setup({
     'nvim-lua/lsp-status.nvim',
 
     -- Tabline
-    { 'nanozuki/tabby.nvim',           config = function() require('config.tabby').setup() end },
+    { 'nanozuki/tabby.nvim',   config = function() require('config.tabby').setup() end },
 
     -- Themes.
     { 'folke/tokyonight.nvim' },
-    { "rebelot/kanagawa.nvim",         config = function() vim.cmd [[colorscheme kanagawa-wave]] end },
+    { "rebelot/kanagawa.nvim", config = function() vim.cmd [[colorscheme kanagawa-wave]] end },
     {
         "catppuccin/nvim",
         cond = false,
@@ -120,7 +150,10 @@ require('lazy').setup({
     {
         'rcarriga/nvim-notify',
         dependencies = { "rebelot/kanagawa.nvim" },
-        config = function() require('config.nvim-notify').setup() end
+        config = function()
+            require('config.nvim-notify').setup()
+            require('utils.keymap').register_module(require('config.nvim-notify.keymap'))
+        end
     },
 
     -- Indent.
@@ -133,6 +166,12 @@ require('lazy').setup({
 
     -- Other.
     'nvim-lua/plenary.nvim', -- require by telescope
+    {
+        'VonHeikemen/fine-cmdline.nvim',
+        dependencies = { 'MunifTanjim/nui.nvim' },
+        config = function()
+        end
+    },
     'tpope/vim-surround',
     { 'ii14/neorepl.nvim', config = function() require('config.neorepl').setup() end },
 }, {
@@ -141,7 +180,8 @@ require('lazy').setup({
         lazy = false
     },
 })
+-- load global configuration
+require('global-config')
 
-for _, v in ipairs(vim.custom.keymap_modules) do
-    v.setup()
-end
+-- Do key mapping.
+require('utils.keymap').apply_modules_keymap()

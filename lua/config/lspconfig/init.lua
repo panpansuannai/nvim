@@ -100,6 +100,6 @@ end
         })
         -- require('go').setup()
         -- require 'lspconfig'.clangd.setup {}
-        require('config.lspconfig.keymap')
+        -- require('config.lspconfig.keymap')
     end
 }

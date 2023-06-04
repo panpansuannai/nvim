@@ -42,8 +42,8 @@ local function hover(bufnr)
                --
         end)
 end
-table.insert(vim.custom.keymap_modules, {
-    setup = function()
+return {
+    keymap = function()
         local opts = { noremap = true, silent = true }
         vim.keymap.set('n', 'gJ', function() vim.diagnostic.goto_next() end, opts)
         vim.keymap.set('n', 'gK', function() vim.diagnostic.goto_prev() end, opts)
@@ -61,4 +61,4 @@ table.insert(vim.custom.keymap_modules, {
 
         vim.keymap.set('n', 'K', function() hover(0) end, { unique = true })
     end
-})
+}

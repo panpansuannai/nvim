@@ -1,5 +1,7 @@
 return {
     setup = function()
-        require('config.lazygit.keymap')
+    end,
+    keymap = function()
+        vim.keymap.set('n', '<leader>G', '<cmd>LazyGit<cr>', { unique = true })
     end
 }
