@@ -63,6 +63,7 @@ require('lazy').setup({
 
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', config = function() require('config.nvim-treesitter') end },
+    { 'nvim-treesitter/playground',      dependencies = { 'nvim-treesitter/nvim-treesitter' } },
     -- { 'nvim-treesitter/nvim-treesitter-context', config = function() require('config.treesitter-context') end },
 
     -- Git
@@ -84,7 +85,20 @@ require('lazy').setup({
     -- File Explore
     { 'kyazdani42/nvim-tree.lua',      config = function() require('config.nvim-tree') end },
 
+    -- Tasks
+    {
+        'stevearc/overseer.nvim',
+        config = function()
+            require('config.overseer').setup()
+            require('utils.keymap').register_module(require('config.overseer.keymap'))
+        end,
+    },
+
     -- Navigation.
+    {
+        "cbochs/grapple.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
     {
         'MattesGroeger/vim-bookmarks',
         config = function()
@@ -128,7 +142,7 @@ require('lazy').setup({
     'nvim-lua/lsp-status.nvim',
 
     -- Tabline
-    { 'nanozuki/tabby.nvim',   config = function() require('config.tabby').setup() end },
+    -- { 'nanozuki/tabby.nvim',   config = function() require('config.tabby').setup() end },
 
     -- Themes.
     { 'folke/tokyonight.nvim' },
@@ -158,11 +172,27 @@ require('lazy').setup({
 
     -- Indent.
     {
-        "lukas-reineke/indent-blankline.nvim", config = function() require('config.indent-blankline').setup() end
+        -- 有展示问题
+        --"lukas-reineke/indent-blankline.nvim", config = function() require('config.indent-blankline').setup() end
+    },
+
+    -- UI
+    {
+        'stevearc/dressing.nvim',
     },
 
     -- Animation
-    { 'echasnovski/mini.animate',     version = false,  config = function() require('config.mini-animate').setup() end },
+    { 'echasnovski/mini.animate',     config = function() require('config.mini-animate').setup() end },
+
+    -- Highlight
+    {
+        'brenoprata10/nvim-highlight-colors',
+        config = function()
+            require('nvim-highlight-colors').setup()
+            vim.cmd[[set termguicolors]]
+            vim.api.nvim_set_option('t_Co', '256')
+        end
+    },
 
     -- Other.
     'nvim-lua/plenary.nvim', -- require by telescope

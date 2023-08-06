@@ -9,7 +9,7 @@ return {
             render = "default",
             stages = "fade_in_slide_out",
             timeout = 5000,
-            top_down = false
+            top_down = true
         }
         require('config.nvim-notify.keymap')
     end,

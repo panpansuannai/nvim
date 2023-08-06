@@ -1,5 +1,14 @@
 M = {}
 M.setup = function()
+    vim.cmd[[highlight GitSignsAdd guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsChange guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsDelete guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsAddLn guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsChangeLn guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsDeleteLn guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsAddNr guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsChangeNr guibg=NONE guisp=NONE]]
+    vim.cmd[[highlight GitSignsDeleteNr guibg=NONE guisp=NONE]]
     require('gitsigns').setup {
         signs                        = {
             add          = { hl = 'GitSignsAdd', text = '▊', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },

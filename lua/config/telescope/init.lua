@@ -2,6 +2,7 @@ require('telescope.builtin')
 
 return {
     setup = function()
+        vim.cmd[[highlight TelescopeNormal guibg=#2a2a2b]]
         local actions = require("telescope.actions")
         require('telescope').setup {
             defaults = {
@@ -21,11 +22,11 @@ return {
                         -- actions.which_key shows the mappings for your picker,
                         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
                         ["<esc>"] = actions.close,
+                        ["<c-[>"] = actions.close,
                         ["<C-j>"] = actions.move_selection_next,
                         ["<C-k>"] = actions.move_selection_previous,
                         ["<C-D>"] = actions.results_scrolling_up,
                         ["<C-u>"] = false,
-                        ["<c-[>"] = actions.close,
                         ["<C-f>"] = actions.preview_scrolling_down,
                         ["<C-b>"] = actions.preview_scrolling_up,
                         ["<C-o>"] = actions.file_edit,

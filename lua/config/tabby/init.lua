@@ -9,15 +9,7 @@ return {
             win = 'TabLine',
             tail = 'TabLine',
         }
-        vim.api.nvim_create_user_command("TabName", function(data)
-            if data.args == "" then
-                vim.notify("Tab name is empty!", vim.log.levels.WARN, {
-                    title = "设置Tab名失败"
-                })
-                return
-            end
-            vim.t.custom_name = data.args
-        end, {})
+        vim.cmd [[command! -nargs=1 TabName lua require('config.tabby').rename(<args>)]]
         require('tabby.tabline').set(function(line)
             return {
                 {
@@ -38,12 +30,14 @@ return {
                     if vim.t[tab.id] ~= nil and vim.t[tab.id].custom_name ~= nil then
                         tab_name = vim.t[tab.id].custom_name
                     end
+                    if tab_name == "" then
+                        tab_name = "[no name]"
+                    end
                     local auto_close = require('utils.tab').query_tab_auto_close(tab.id)
                     local icon = ''
                     if tab.is_current() and auto_close then
                         icon = ''
-                    else
-                        tab.is_current()
+                    elseif tab.is_current() then
                         icon = ''
                     end
                     return {
@@ -76,5 +70,15 @@ return {
                 hl = theme.fill,
             }
         end)
+    end,
+    rename = function(name)
+        if name == "" then
+            vim.notify("Tab name is empty!", vim.log.levels.WARN, {
+                title = "设置Tab名失败"
+            })
+            return
+        end
+        vim.t.custom_name = name
+        vim.cmd('redrawtabline')
     end
 }

@@ -80,17 +80,19 @@ table.insert(gls.left, {
                 separator_highlight = 'GalaxyViModeReverse',
                 provider = function()
                     -- auto change color according the vim mode
+                    --[[
                     local mode = vim.fn.mode() or vim.fn.visualmode()
                     if (mode_color[mode])
                     then
                         vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[mode])
                         vim.api.nvim_command('hi GalaxyViModeReverse guifg=' .. mode_color[mode])
                     end
-                    local mode_string = '▊ ' .. mode
+                    ]]--
+                    return '▊'
                     -- mode_string = mode_string .. mode_icon[mode]
                     -- mode_string = 'N'
-                    return mode_string .. " "
                 end,
+                separator = ' ',
                 highlight = { colors.red, colors.bg, 'bold' }
             }
         })
@@ -98,24 +100,63 @@ table.insert(gls.left, {
         table.insert(gls.left, {
             GitIcon = {
                 provider = function()
-                    return '   '
+                    return '  '
                 end,
                 condition = condition.check_git_workspace,
-                --separator = ' ',
+                separator = ' ',
                 separator_highlight = { 'NONE', colors.bg },
                 highlight = { colors.bg, colors.dark_yellow, 'bold' }
-            }
+            },
         })
+
 
         table.insert(gls.left, {
             GitBranch = {
                 provider = 'GitBranch',
-                ondition = condition.check_git_workspace,
-                separator = '    ',
+                condition = condition.check_git_workspace,
+                separator = ' ',
                 separator_highlight = { 'NONE', colors.bg },
-                highlight = { colors.bg, colors.dark_yellow, 'bold' }
-            }
+                highlight = { colors.dark_yellow, colors.bg, 'bold' }
+            },
         })
+
+        table.insert(gls.left, {
+            TreesitterFuncName = {
+                provider = function()
+                    local node = vim.treesitter.get_node()
+                    while node ~= nil do
+                        if node:type() == "method_declaration" or node:type() == "function_declaration" or node:type() == "type_declaration" then
+                            break
+                        end
+                        node = node:parent()
+                    end
+                    if node == nil then
+                        return ""
+                    end
+                    local query = vim.treesitter.query.parse('go',
+                        [[
+                        ([(method_declaration name:(field_identifier) @name) 
+                          (function_declaration name:(identifier) @name) 
+                          (type_declaration (type_spec name:(type_identifier) @type))])]])
+                    for id, node, _ in query:iter_captures(node, 0) do
+                        local start_row, start_col, end_row, end_col = node:range()
+                        local lines = vim.api.nvim_buf_get_text(0, start_row, start_col, end_row, end_col, {})
+                        if query.captures[id] ==  "type" then
+                            return " " .. lines[1] .. "{...} "
+                        end
+                        return " " .. lines[1] .. "(...) "
+                    end
+                end,
+                condition = function()
+                    return vim.api.nvim_buf_get_option(0, "filetype") == "go"
+                end,
+                icon = ' ',
+                separator = ' ',
+                separator_highlight = { 'NONE', colors.bg },
+                highlight = { colors.bg, colors.light_blue , 'bold'}
+            },
+        })
+
 
         table.insert(gls.left, {
             DiffAdd = {

@@ -41,7 +41,17 @@ vim.o.cmdheight = 1
 vim.o.termguicolors = true
 -- colorscheme industry
 -- colorscheme OceanicNext
--- vim.cmd[[highlight Normal guibg=NONE guisp=NONE]]
+
+-- 透明
+vim.cmd [[highlight Normal guibg=NONE guisp=NONE]]
+vim.cmd [[highlight SignColumn guibg=NONE guisp=NONE]]
+vim.cmd [[highlight ColorColumn guibg=NONE guisp=NONE]]
+vim.cmd [[highlight CursorColumn guibg=NONE guisp=NONE]]
+vim.cmd [[highlight CursorLineNr guibg=NONE guisp=NONE]]
+vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
+vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
+vim.cmd [[highlight! link WinSeparator CursorLine]]
+
 -- highlight the yanked text
 vim.cmd([[
 augroup LuaHighlight
@@ -78,6 +88,7 @@ vim.keymap.set('n', '<leader>ev', '<cmd>edit $MYVIMRC<cr>')
 vim.keymap.set('n', '<leader>qq', '<cmd>wqa!<cr>')
 vim.keymap.set('n', "<leader>[", '^')
 vim.keymap.set('n', "<leader>]", '$')
+
 -- 自动关闭Tab
 require('utils.tab').setup_tab_close_when_leave()
 vim.keymap.set('n', 'M', function()
@@ -98,4 +109,45 @@ vim.keymap.set('n', 'M', function()
         timeout = 2000,
         -- replace = vim.t.auto_close_record,
     })
+end)
+
+vim.keymap.set('n', "<leader>sg", function()
+    vim.cmd [[source ~/.config/nvim/lua/global-config.lua]]
+end)
+
+-- 测试用
+vim.keymap.set('n', "<leader>za", function()
+    local timer = vim.loop.new_timer()
+    if timer == nil then
+        require('notify').notify("timer = nil", vim.log.levels.ERROR, {})
+        return
+    end
+    local r = nil
+    timer:start(1000, 500, vim.schedule_wrap(function()
+        r = require('notify').notify(vim.inspect(math.floor(vim.loop.now() / 1000)), 'info',
+            { title = "倒计时10s", replace = r })
+    end))
+    vim.defer_fn(function() timer:stop() end, 10000)
+end)
+
+local function notice_to_relax()
+    vim.defer_fn(function()
+        require('notify').notify([[人生会有很多关要渡过去，道道难关道道闯，为了生活，为了追求梦想，
+为了自己爱的人，也为了爱自己的人，不敢松懈下来，一直往前走，
+四处奔波，拼命干活，哪有不累的呢？
+每个人其实都是单枪匹马，如果没有遇到伯乐，没有遇到知己，那么一路前行，
+总会感觉身心疲惫。 每个人都有自己的烦恼和忧愁，实在太累的时候，
+希望你能够停下来，休息一下，这是在善待自己，不为任何人，就为你自己，
+照顾好自己，才能照顾到别人。
+
+人生很苦，生活很累，你也要允许自己累，然后好好休息，
+调整好状态，才能更好地启程。]], 'warn', { title = "写码半小时了哦，休息下吧" })
+        notice_to_relax()
+    end, 1000 * 30 * 60)
+    -- vim.g["notice_to_relax_timer"] = timer
+end
+notice_to_relax()
+
+vim.keymap.set('n', "<leader>zb", function()
+    notice_to_relax()
 end)
