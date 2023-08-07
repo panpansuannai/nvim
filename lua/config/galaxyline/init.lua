@@ -139,12 +139,11 @@ table.insert(gls.left, {
                           (function_declaration name:(identifier) @name) 
                           (type_declaration (type_spec name:(type_identifier) @type))])]])
                     for id, node, _ in query:iter_captures(node, 0) do
-                        local start_row, start_col, end_row, end_col = node:range()
-                        local lines = vim.api.nvim_buf_get_text(0, start_row, start_col, end_row, end_col, {})
+                        local text = vim.treesitter.get_node_text(node, 0, {})
                         if query.captures[id] ==  "type" then
-                            return " " .. lines[1] .. "{...} "
+                            return " " .. text .. "{...} "
                         end
-                        return " " .. lines[1] .. "(...) "
+                        return " " .. text .. "(...) "
                     end
                 end,
                 condition = function()
