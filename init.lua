@@ -102,7 +102,7 @@ require('lazy').setup({
     {
         'MattesGroeger/vim-bookmarks',
         config = function()
-            require('config.bookmarks')
+            require('config.bookmarks').setup()
         end
     },
     {
