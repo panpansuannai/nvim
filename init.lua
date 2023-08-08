@@ -212,6 +212,8 @@ require('lazy').setup({
 })
 -- load global configuration
 require('global-config')
+-- Load autocmd configuration
+require('autocmd-config').setup()
 
 -- Do key mapping.
 require('utils.keymap').apply_modules_keymap()

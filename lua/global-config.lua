@@ -69,6 +69,27 @@ vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>')
 vim.keymap.set('n', '<leader>tT', function()
     require('utils.tab').copy_current_tab()
 end)
+-- 自动关闭Tab
+require('utils.tab').setup_tab_close_when_leave()
+vim.keymap.set('n', '<leader>tm', function()
+    local notify = require('notify')
+    local tab = vim.api.nvim_get_current_tabpage()
+    if require('utils.tab').query_tab_auto_close(tab) then
+        require('utils.tab').unset_tab_close_when_leave(tab)
+        notify("取消Tab自动关闭", vim.log.levels.INFO, {
+            title = "通知",
+            timeout = 2000,
+            -- replace = vim.t.auto_close_record,
+        })
+        return
+    end
+    require('utils.tab').set_tab_close_when_leave(tab)
+    notify("Tab自动关闭", vim.log.levels.INFO, {
+        title = "通知",
+        timeout = 2000,
+        -- replace = vim.t.auto_close_record,
+    })
+end)
 
 -- window
 vim.keymap.set('n', '<leader>wv', '<C-w>v<C-w>l')
@@ -89,27 +110,6 @@ vim.keymap.set('n', '<leader>qq', '<cmd>wqa!<cr>')
 vim.keymap.set('n', "<leader>[", '^')
 vim.keymap.set('n', "<leader>]", '$')
 
--- 自动关闭Tab
-require('utils.tab').setup_tab_close_when_leave()
-vim.keymap.set('n', 'M', function()
-    local notify = require('notify')
-    local tab = vim.api.nvim_get_current_tabpage()
-    if require('utils.tab').query_tab_auto_close(tab) then
-        require('utils.tab').unset_tab_close_when_leave(tab)
-        notify("取消Tab自动关闭", vim.log.levels.INFO, {
-            title = "通知",
-            timeout = 2000,
-            -- replace = vim.t.auto_close_record,
-        })
-        return
-    end
-    require('utils.tab').set_tab_close_when_leave(tab)
-    notify("Tab自动关闭", vim.log.levels.INFO, {
-        title = "通知",
-        timeout = 2000,
-        -- replace = vim.t.auto_close_record,
-    })
-end)
 
 vim.keymap.set('n', "<leader>sg", function()
     vim.cmd [[source ~/.config/nvim/lua/global-config.lua]]
@@ -233,4 +233,13 @@ vim.keymap.set('n', "<leader>zb", function()
         "}",
     })
     vim.lsp.buf.format()
+end)
+
+vim.keymap.set('n', "<leader>zc", function()
+    local notify = require('utils.notify')
+    local ctrl = notify.new_controller()
+    notify.auto_post(ctrl)
+    vim.defer_fn(function()
+        notify.success(ctrl)
+    end, 5000)
 end)
