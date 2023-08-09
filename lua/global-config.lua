@@ -149,49 +149,39 @@ end
 notice_to_relax()
 
 vim.keymap.set('n', "<leader>zb", function()
-    local var_decl_node = vim.treesitter.get_node()
-    while var_decl_node ~= nil do
-        if var_decl_node:type() == "short_var_declaration" or var_decl_node:type() == "assignment_statement" then
-            break
-        end
-        var_decl_node = var_decl_node:parent()
-    end
+    local var_decl_node = require('utils.treesitter').find_nearest_parent(vim.treesitter.get_node(),
+        { "assignment_statement", "short_var_declaration" })
     if var_decl_node == nil then
         return
     end
     local expr_list_node = var_decl_node:named_child(0)
     local err_var_name = nil
-    local i = 0;
-    while i < expr_list_node:child_count() do
-        local name = vim.treesitter.get_node_text(expr_list_node:child(i), 0)
+    for node, _ in expr_list_node:iter_children() do
+        local name = vim.treesitter.get_node_text(node, 0)
         if string.match(string.lower(name), "err") ~= nil then
             err_var_name = name
             break
         end
-        i = i + 1
     end
     if err_var_name == nil then
         vim.notify("not found variable named like err", vim.log.levels.WARN)
         return
     end
+    -- find function call
     local err_func_name = nil
     local err_func_query = vim.treesitter.query.parse('go',
         [[([(call_expression function: (identifier) @name) (selector_expression field: (field_identifier) @name)])]])
     for _, node, _ in err_func_query:iter_captures(var_decl_node, 0) do
         err_func_name = vim.treesitter.get_node_text(node, 0)
+        break
     end
     if err_func_name == nil then
         vim.notify("not found function that throw error", vim.log.levels.WARN)
         return
     end
     -- find function
-    local function_node = var_decl_node
-    while function_node ~= nil do
-        if function_node:type() == "function_declaration" or function_node:type() == "method_declaration" then
-            break
-        end
-        function_node = function_node:parent()
-    end
+    local function_node = require('utils.treesitter').find_nearest_parent(var_decl_node,
+        { "function_declaration", "method_declaration" })
     if function_node == nil then
         vim.notify("not in function", vim.log.levels.WARN)
         return
@@ -199,10 +189,10 @@ vim.keymap.set('n', "<leader>zb", function()
     local fname = nil
     local is_method = false
     local reciever_type = nil
-    local query = vim.treesitter.query.parse('go',
-        [[
-                        ([(method_declaration name:(field_identifier) @mname)
-                          (function_declaration name:(identifier) @fname)])]])
+    local query = vim.treesitter.query.parse('go', [[
+        ([(method_declaration name:(field_identifier) @mname)
+        (function_declaration name:(identifier) @fname)])
+    ]])
     for id, node, _ in query:iter_captures(function_node, 0) do
         fname = vim.treesitter.get_node_text(node, 0, {})
         if query.captures[id] == "mname" then
@@ -215,6 +205,7 @@ vim.keymap.set('n', "<leader>zb", function()
         return
     end
     if is_method then
+        -- get reciever type
         local reciever_node = function_node:named_child(0)
         local type_query = vim.treesitter.query.parse('go', [[ ((type_identifier) @type) ]])
         for _, node, _ in type_query:iter_captures(reciever_node, 0) do
