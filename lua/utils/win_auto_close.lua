@@ -15,9 +15,6 @@ function module.cancel()
     vim.w[module.key] = nil
 end
 
-function module.try() 
-    if vim.w[module.key] != nil then
-        
-    end
+function module.try()
 end
 return module

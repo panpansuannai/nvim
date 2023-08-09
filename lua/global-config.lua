@@ -217,8 +217,8 @@ vim.keymap.set('n', "<leader>zb", function()
         log_msg = log_msg .. "[" .. reciever_type .. "] "
     end
     log_msg = log_msg .. fname .. " " .. err_func_name .. " error: %v"
-    local row = vim.api.nvim_win_get_cursor(0)[1]
-    vim.api.nvim_buf_set_lines(0, row, row, false, {
+    local _, _, row, _ = var_decl_node:range(false)
+    vim.api.nvim_buf_set_lines(0, row+1, row+1, false, {
         "if " .. err_var_name .. " != nil {",
         [[logger.Error(ctx, "]] .. log_msg .. [[", ]] .. err_var_name .. [[ )]],
         "}",
