@@ -42,16 +42,6 @@ vim.o.termguicolors = true
 -- colorscheme industry
 -- colorscheme OceanicNext
 
--- 透明
-vim.cmd [[highlight Normal guibg=NONE guisp=NONE]]
-vim.cmd [[highlight SignColumn guibg=NONE guisp=NONE]]
-vim.cmd [[highlight ColorColumn guibg=NONE guisp=NONE]]
-vim.cmd [[highlight CursorColumn guibg=NONE guisp=NONE]]
-vim.cmd [[highlight CursorLineNr guibg=NONE guisp=NONE]]
-vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
-vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
-vim.cmd [[highlight! link WinSeparator CursorLine]]
-
 -- highlight the yanked text
 vim.cmd([[
 augroup LuaHighlight

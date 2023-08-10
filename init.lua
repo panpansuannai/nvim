@@ -145,8 +145,43 @@ require('lazy').setup({
     -- { 'nanozuki/tabby.nvim',   config = function() require('config.tabby').setup() end },
 
     -- Themes.
-    { 'folke/tokyonight.nvim' },
-    { "rebelot/kanagawa.nvim", config = function() vim.cmd [[colorscheme kanagawa-wave]] end },
+    {
+        'folke/tokyonight.nvim',
+        cond = false,
+        config = function()
+        end
+    },
+    {
+        "rebelot/kanagawa.nvim",
+        cond = true,
+        config = function()
+            vim.cmd [[colorscheme kanagawa-wave]]
+            -- 透明
+            vim.cmd [[highlight Normal guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight SignColumn guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight ColorColumn guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight CursorColumn guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight CursorLineNr guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
+            vim.cmd [[highlight! link WinSeparator CursorLine]]
+        end
+    },
+    {
+        'AlexvZyl/nordic.nvim',
+        lazy = false,
+        cond = false,
+        priority = 1000,
+        config = function()
+            require('nordic').setup{
+                transparent_bg = true,
+                brighter_border = true,
+                reduce_blue = false,
+                bold_keywork = true,
+            }
+            require 'nordic'.load()
+        end
+    },
     {
         "catppuccin/nvim",
         cond = false,
@@ -189,7 +224,7 @@ require('lazy').setup({
         'brenoprata10/nvim-highlight-colors',
         config = function()
             require('nvim-highlight-colors').setup()
-            vim.cmd[[set termguicolors]]
+            vim.cmd [[set termguicolors]]
             vim.api.nvim_set_option('t_Co', '256')
         end
     },

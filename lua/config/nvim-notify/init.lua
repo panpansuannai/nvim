@@ -2,7 +2,7 @@ return {
     setup = function()
         vim.notify = require('notify')
         vim.notify.setup {
-            background_colour = "NotifyBackground",
+            -- background_colour = "NotifyBackground",
             fps = 60,
             level = 2,
             minimum_width = 50,
