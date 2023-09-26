@@ -9,17 +9,22 @@ return {
                     env.GOARCH = "amd64"
                 end
                 local package = vim.fn.expand('%:p:h')
+                local args = {
+                    "test",
+                    "-v",
+                    "-gcflags",
+                    "all=-l -N",
+                    package
+                }
+                if #params.coverprofile > 0 then
+                    table.insert(args, "-coverprofile")
+                    table.insert(args, params.coverprofile)
+                end
                 return {
                     cmd = {
                         "go"
                     },
-                    args = {
-                        "test",
-                        "-v",
-                        "-gcflags",
-                        "all=-l -N",
-                        package
-                    },
+                    args = args,
                     env = env,
                 }
             end,
@@ -30,6 +35,13 @@ return {
                     desc = "set ENV GOARCH=amd64",
                     optional = false,
                     default = false,
+                },
+                coverprofile = {
+                    type = "string",
+                    name = "test coverage file",
+                    desc = "test coverage file",
+                    optional = true,
+                    default = "",
                 }
             },
             components = {
@@ -43,19 +55,24 @@ return {
                 if params.gomonkey then
                     env.GOARCH = "amd64"
                 end
+                local args = {
+                    "test",
+                    "-v",
+                    "-gcflags",
+                    "all=-l -N",
+                    vim.fn.expand('%:p:h'),
+                    "-run",
+                    vim.fn.expand('<cword>')
+                }
+                if #params.coverprofile > 0 then
+                    table.insert(args, "-coverprofile")
+                    table.insert(args, params.coverprofile)
+                end
                 return {
                     cmd = {
                         "go"
                     },
-                    args = {
-                        "test",
-                        "-v",
-                        "-gcflags",
-                        "all=-l -N",
-                        vim.fn.expand('%:p:h'),
-                        "-run",
-                        vim.fn.expand('<cword>')
-                    },
+                    args = args,
                     env = env,
                 }
             end,
@@ -66,6 +83,13 @@ return {
                     desc = "set ENV GOARCH=amd64",
                     optional = false,
                     default = false,
+                },
+                coverprofile = {
+                    type = "string",
+                    name = "test coverage file",
+                    desc = "test coverage file",
+                    optional = true,
+                    default = "",
                 }
             },
             components = {

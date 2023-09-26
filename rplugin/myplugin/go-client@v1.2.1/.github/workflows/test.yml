@@ -1,0 +1,86 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  release:
+    types:
+      - published
+      - created
+      - edited
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04  # https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+          - macos-11.0    # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-11-Readme.md
+          - windows-2022  # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2022-Readme.md
+        go-version:
+          - 1.15.x
+          - 1.16.x
+          - 1.17.x
+        neovim-version:
+          - v0.6.1
+          - nightly
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Set flag environment variable
+      run: |
+        echo "OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        echo "GO_VERSION=$(echo ${{ matrix.go-version }} | cut -d. -f-2)" >> $GITHUB_ENV
+        echo "NVIM_VERSION=$(if [ ${{ matrix.neovim-version }} != 'nightly' ]; then echo 'stable'; else echo 'nightly'; fi)" >> $GITHUB_ENV
+
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Cache Go module and build cache
+      uses: actions/cache@v2
+      with:
+        key: go-${{ env.OS }}-${{ hashFiles('**/go.mod') }}
+        path: |
+          ~/go/pkg/mod
+          ~/.cache/go-build
+          ~/Library/Caches/go-build
+          '%LocalAppData%\go-build'
+        restore-keys: |
+          go-${{ env.OS }}-
+
+    - name: Install neovim binary
+      uses: rhysd/action-setup-vim@v1
+      with:
+        neovim: true
+        version: ${{ matrix.neovim-version }}
+
+    - name: gofmt
+      if: ${{ env.OS != 'windows' }}
+      run: |
+        diff -u <(echo -n) <(gofmt -s -d .)
+
+    - name: Test and vet
+      run: |
+        go vet ./...
+        go test -v -race -count=1 -covermode=atomic -coverpkg=./... -coverprofile=coverage.out ./...
+
+    - uses: codecov/codecov-action@v2
+      with:
+        file: coverage.out
+        flags: ${{ env.OS }}-${{ env.GO_VERSION }}-${{ env.NVIM_VERSION }}
+        env_vars: OS,GO_VERSION,NVIM_VERSION

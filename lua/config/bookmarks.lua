@@ -12,7 +12,7 @@ return {
         vim.g['bookmark_show_toggle_warning'] = 0
         vim.g['bookmark_auto_save'] = 1
         vim.g['bookmark_manage_per_buffer'] = 1
-        vim.g['bookmark_auto_save_file'] = "$HOME/.config/nvim/bookmarks"
+        -- vim.g['bookmark_auto_save_file'] = "$HOME/.config/nvim/bookmarks"
         vim.g['bookmark_auto_close'] = 1
         vim.g['bookmark_highlight_lines'] = 1
         vim.g['bookmark_display_annotation'] = 1

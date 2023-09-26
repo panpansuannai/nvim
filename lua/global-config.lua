@@ -1,47 +1,3 @@
-vim.o.showtabline = 2
-vim.o.laststatus = 3
-vim.o.compatible = false
-vim.cmd('filetype off')
-vim.cmd('syntax on')
-
--- split a window to show substitute
-vim.o.inccommand = 'split'
-vim.o.updatetime = 2000
-vim.o.timeoutlen = 700
-
-vim.o.foldmethod = "expr"
--- vim.o.foldcolumn = 1
-vim.o.number = true
-vim.o.numberwidth = 6
-vim.o.rnu = true
-
--- highlight the search result
-vim.o.incsearch = true
-
--- stop search when reach end of file
-vim.o.wrapscan = false
-
--- command line show edit mode
-vim.o.showmode = true
-
-vim.o.encoding = "utf-8"
-vim.o.expandtab = true
-vim.o.autoindent = true
-vim.o.shiftwidth = 4
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.cursorline = true
-vim.o.wrap = true
-vim.o.hlsearch = true
-
--- command line height
-vim.o.cmdheight = 1
-
--- colors
-vim.o.termguicolors = true
--- colorscheme industry
--- colorscheme OceanicNext
-
 -- highlight the yanked text
 vim.cmd([[
 augroup LuaHighlight
@@ -99,6 +55,7 @@ vim.keymap.set('n', '<leader>ev', '<cmd>edit $MYVIMRC<cr>')
 vim.keymap.set('n', '<leader>qq', '<cmd>wqa!<cr>')
 vim.keymap.set('n', "<leader>[", '^')
 vim.keymap.set('n', "<leader>]", '$')
+vim.keymap.set('n', '<leader>f', 'zfi{')
 
 
 vim.keymap.set('n', "<leader>sg", function()
@@ -216,6 +173,11 @@ vim.keymap.set('n', "<leader>zb", function()
     vim.lsp.buf.format()
 end)
 
+vim.keymap.set('n', "<leader>zl", function()
+    vim.fn.Hello()
+end)
+
+-- 测试loading
 vim.keymap.set('n', "<leader>zc", function()
     local notify = require('utils.notify')
     local ctrl = notify.new_controller()
@@ -223,4 +185,16 @@ vim.keymap.set('n', "<leader>zc", function()
     vim.defer_fn(function()
         notify.success(ctrl)
     end, 5000)
+end)
+
+
+vim.keymap.set('n', "<leader>zd", function()
+    local branch = vim.fn.system('git branch --show-current')
+    if branch ~= nil then
+        branch = string.gsub(branch, '\n', '')
+    else
+        vim.notify("not found current branch", vim.log.levels.INFO)
+        return
+    end
+    vim.fn.ListOpenedMR(branch)
 end)

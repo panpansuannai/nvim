@@ -2,7 +2,7 @@ require('telescope.builtin')
 
 return {
     setup = function()
-        vim.cmd[[highlight TelescopeNormal guibg=#2a2a2b]]
+        --  vim.cmd[[highlight TelescopeNormal guibg=#2a2a2b]]
         local actions = require("telescope.actions")
         require('telescope').setup {
             defaults = {
@@ -55,6 +55,5 @@ return {
                 -- please take a look at the readme of the extension you want to configure
             }
         }
-        require('config.telescope.keymap')
     end
 }

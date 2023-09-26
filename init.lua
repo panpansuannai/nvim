@@ -13,6 +13,9 @@ do -- Install lazy.nvim plugin manager.
     vim.opt.rtp:prepend(lazypath)
 end
 
+-- load global configuration
+require('options-config')
+
 require('lazy').setup({
     -- LSP
     {
@@ -32,6 +35,7 @@ require('lazy').setup({
             require('utils.keymap').register_module(mod)
         end
     },
+    --[[
     {
         'mrded/nvim-lsp-notify',
         dependencies = { 'rcarriga/nvim-notify' },
@@ -39,6 +43,7 @@ require('lazy').setup({
             require('lsp-notify').setup({})
         end
     },
+    ]]
     { 'folke/neodev.nvim',               config = function() require('neodev').setup() end },
     -- 'fatih/vim-go',
     -- 'ray-x/go.nvim',
@@ -83,7 +88,7 @@ require('lazy').setup({
     },
 
     -- File Explore
-    { 'kyazdani42/nvim-tree.lua',      config = function() require('config.nvim-tree') end },
+    { 'kyazdani42/nvim-tree.lua',     config = function() require('config.nvim-tree') end },
 
     -- Tasks
     {
@@ -101,14 +106,18 @@ require('lazy').setup({
     },
     {
         'MattesGroeger/vim-bookmarks',
+        lazy = false,
         config = function()
             require('config.bookmarks').setup()
         end
     },
     {
         'nvim-telescope/telescope.nvim',
+        lazy = false,
         dependencies = {
-            'smartpde/telescope-recent-files'
+            'smartpde/telescope-recent-files',
+            'BurntSushi/ripgrep',
+            "nvim-lua/plenary.nvim",
         },
         config = function()
             local mod = require('config.telescope')
@@ -116,7 +125,13 @@ require('lazy').setup({
             require('utils.keymap').register_module(require('config.telescope.keymap'))
         end
     },
-    { 'simrat39/symbols-outline.nvim', config = function() require('config.symbols-outline') end },
+    {
+        'simrat39/symbols-outline.nvim',
+        config = function()
+            require('config.symbols-outline').setup()
+            require('utils.keymap').register_module(require('config.symbols-outline'))
+        end
+    },
     'itchyny/vim-cursorword',
     {
         'phaazon/hop.nvim',
@@ -146,16 +161,25 @@ require('lazy').setup({
 
     -- Themes.
     {
+        'JoosepAlviste/palenightfall.nvim',
+        cond = false,
+        config = function()
+            vim.cmd [[colorscheme palenightfall]]
+        end
+    },
+    {
         'folke/tokyonight.nvim',
         cond = false,
         config = function()
+            vim.cmd [[colorscheme tokyonight-night]]
         end
     },
     {
         "rebelot/kanagawa.nvim",
-        cond = true,
+        cond = false,
         config = function()
             vim.cmd [[colorscheme kanagawa-wave]]
+            vim.cmd [[highlight! link TelescopeBorder CursorLineNr ]]
             -- 透明
             vim.cmd [[highlight Normal guibg=NONE guisp=NONE]]
             vim.cmd [[highlight SignColumn guibg=NONE guisp=NONE]]
@@ -165,7 +189,10 @@ require('lazy').setup({
             vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
             vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
             vim.cmd [[highlight! link WinSeparator CursorLine]]
-        end
+        end,
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+        },
     },
     {
         'AlexvZyl/nordic.nvim',
@@ -173,7 +200,7 @@ require('lazy').setup({
         cond = false,
         priority = 1000,
         config = function()
-            require('nordic').setup{
+            require('nordic').setup {
                 transparent_bg = true,
                 brighter_border = true,
                 reduce_blue = false,
@@ -184,9 +211,10 @@ require('lazy').setup({
     },
     {
         "catppuccin/nvim",
-        cond = false,
+        cond = true,
         name = "catppuccin",
         config = function()
+            vim.cmd('set termguicolors')
             vim.cmd('colorscheme catppuccin-mocha')
         end
     },
@@ -217,26 +245,18 @@ require('lazy').setup({
     },
 
     -- Animation
-    { 'echasnovski/mini.animate',     config = function() require('config.mini-animate').setup() end },
+    -- { 'echasnovski/mini.animate', config = function() require('config.mini-animate').setup() end },
 
     -- Highlight
     {
         'brenoprata10/nvim-highlight-colors',
         config = function()
             require('nvim-highlight-colors').setup()
-            vim.cmd [[set termguicolors]]
             vim.api.nvim_set_option('t_Co', '256')
         end
     },
 
     -- Other.
-    'nvim-lua/plenary.nvim', -- require by telescope
-    {
-        'VonHeikemen/fine-cmdline.nvim',
-        dependencies = { 'MunifTanjim/nui.nvim' },
-        config = function()
-        end
-    },
     'tpope/vim-surround',
     { 'ii14/neorepl.nvim', config = function() require('config.neorepl').setup() end },
 }, {
@@ -247,8 +267,30 @@ require('lazy').setup({
 })
 -- load global configuration
 require('global-config')
+
 -- Load autocmd configuration
 require('autocmd-config').setup()
 
 -- Do key mapping.
 require('utils.keymap').apply_modules_keymap()
+
+-- Load plugin
+vim.cmd [[
+if exists('g:loaded_myplugin')
+    finish
+endif
+let g:loaded_myplugin = 1
+
+function! s:RequirePlugin(host) abort
+    return jobstart([stdpath('config') . '/rplugin/myplugin/myplugin'], {'rpc': v:true})
+endfunction
+
+call remote#host#Register('my_plugin', 'x', function('s:RequirePlugin'))
+call remote#host#RegisterPlugin('my_plugin', '0', [
+    \ {'type': 'function', 'name': 'Plugtest', 'sync': 0, 'opts': {}},
+    \ {'type': 'function', 'name': 'CreateMR', 'sync': 0, 'opts': {}},
+    \ {'type': 'function', 'name': 'ListOpenedMR', 'sync': 0, 'opts': {}},
+    \ {'type': 'autocmd', 'name': 'VimEnter', 'sync': 0, 'opts': {'group': 'ExmplNvGoClientGrp', 'pattern': '*'}},
+    \ ])
+
+]]
