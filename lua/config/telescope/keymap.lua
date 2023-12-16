@@ -35,7 +35,7 @@ return {
 
             require('utils.tab').set_tab_close_when_leave(tab)
 
-            local record = vim.notify("按`M`取消自动关闭该Tab", vim.log.levels.TRACE, {
+            local record = vim.notify("按`M`取消自动关闭该Tab", vim.log.levels.Info, {
                 title = "通知",
                 timeout = 5000,
             })

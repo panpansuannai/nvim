@@ -47,6 +47,8 @@
     ],
     "workspace.checkThirdParty": false,
     "diagnostics.disable": [
-        "undefined-global"
+        "undefined-global",
+        "unused-local",
+        "param-type-mismatch"
     ]
 }

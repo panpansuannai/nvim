@@ -4,3 +4,4 @@ lazy
 parser
 parser-info
 lazy-lock.json
+.vscode

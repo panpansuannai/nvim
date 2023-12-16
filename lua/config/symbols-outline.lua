@@ -7,7 +7,7 @@ return {
             auto_preview = true,
             position = 'right',
             relative_width = true,
-            width = 25,
+            width = 20,
             auto_close = true,
             show_numbers = false,
             show_relative_numbers = false,

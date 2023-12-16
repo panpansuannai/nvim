@@ -21,7 +21,7 @@ local function notify_lsp_progress(method)
                 title = "LSP progress",
                 replace = last_record,
                 icon = loading_icons[cnt % 9 + 1],
-            }), cnt + 1}
+            }), cnt + 1 }
             old_handler(...)
         end
     end
@@ -59,14 +59,15 @@ local function hover_when_hold()
     })
 end
 ]]
-   --
+--
 
 return {
     setup = function()
         -- debug lsp
         -- notify_lsp_handler('textDocument/hover')
-        notify_lsp_progress('$/progress')
-
+        --[[ use noice to tell the progress
+         notify_lsp_progress('$/progress')
+         ]]
         -- Diagnostic
         vim.cmd [[sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=]]
         vim.cmd [[sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=]]
@@ -94,6 +95,8 @@ return {
         end
 
         -- language servier configs
+        require 'lspconfig'.rust_analyzer.setup {}
+
         require 'lspconfig'.gopls.setup {
             single_file_support = true,
             on_attach = on_attach,

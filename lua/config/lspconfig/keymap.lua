@@ -1,4 +1,4 @@
-local function hover(bufnr)
+local function hover_notify(bufnr)
     vim.lsp.buf_request(bufnr, 'textDocument/hover', vim.lsp.util.make_position_params(),
         function(_, result, ctx, config)
             if not (result and result.contents) then
@@ -14,10 +14,10 @@ local function hover(bufnr)
             local buf = vim.api.nvim_create_buf(false, true)
             markdown_lines = vim.lsp.util.stylize_markdown(buf, markdown_lines, config)
             local width, height = vim.lsp.util._make_floating_popup_size(markdown_lines,
-            { max_height = math.floor(cur_win_height / 2), max_width = math.floor(cur_win_width / 2) })
+                { max_height = math.floor(cur_win_height / 2), max_width = math.floor(cur_win_width / 2) })
             -- local opt      = vim.lsp.util.make_floating_popup_options(height, width, { relative = 'cursor' })
             -- local win      = vim.api.nvim_open_win(buf, false, opt)
-            vim.notify("", vim.log.levels.INFO, {
+            vim.notify("Hover", vim.log.levels.INFO, {
                 title = "Hover",
                 timeout = 10000,
                 on_open = function(winnr)
@@ -39,7 +39,7 @@ local function hover(bufnr)
                 vim.api.nvim_buf_delete(buf, { force = true })
             end))
             ]]
-               --
+            --
         end)
 end
 return {
@@ -59,6 +59,6 @@ return {
         vim.keymap.set('n', '<leader>ls',
             '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 
-        vim.keymap.set('n', 'K', function() hover(0) end, { unique = true })
+        vim.keymap.set('n', 'K', function() hover_notify(0) end, { unique = true })
     end
 }

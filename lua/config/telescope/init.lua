@@ -14,7 +14,6 @@ return {
                 },
                 file_ignore_patterns = {
                     "mock_.+%.go",
-                    ".+_test.go",
                 },
                 mappings = {
                     i = {

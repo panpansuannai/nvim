@@ -3,6 +3,8 @@ return {
         vim.keymap.set('n', '<leader>oo', "<cmd>OverseerRun<cr>")
         vim.keymap.set('n', '<leader>op', "<cmd>OverseerToggle bottom<cr>")
         vim.keymap.set('n', '<leader>on', "<cmd>OverseerBuild<cr>")
+
+        -- create mr
         vim.keymap.set('n', '<leader>or', function()
             local overseer = require('overseer.form')
             local branch = vim.fn.system('git branch --show-current')
@@ -13,7 +15,7 @@ return {
             if title ~= nil then
                 title = string.gsub(title, '\n', '')
             end
-            overseer.open("Create merge request", {
+            overseer.open("*Create merge request", {
                 Repository = {
                     type = "string",
                     order = 1,
@@ -48,8 +50,30 @@ return {
                 if params == nil then
                     return
                 end
+                local ffi = require('ffi')
+                local param = ffi.new('create_mr_param',
+                    ffi.new('char[?]', #params.Repository+1, params.Repository),
+                    ffi.new('char[?]', #params.Source+1, params.Source),
+                    ffi.new('char[?]', #params.Target+1, params.Target),
+                    ffi.new('char[?]', #params.Title+1, params.Title)
+                )
+                if params.RemoveSource then
+                    param.remove_source = 1
+                end
+                --[[
+                param.project = ffi.new('char[?]', #params.Repository, params.Repository)
+                param.source = ffi.new('char[?]', #params.Source, params.Source)
+                param.target = ffi.new('char[?]', #params.Target, params.Target)
+                param.title = ffi.new('char[?]', #params.Title, params.Title)
+                if params.RemoveSource == "true" then
+                    param.remove_source = 1
+                end
+                ]]
+                vim.oxi.create_mr(param)
+                --[[
                 vim.fn.CreateMR(params.Repository, params.Title, params.Desc, params.Source, params.Target,
                     params.RemoveSource)
+                    ]]
                 -- vim.notify(vim.inspect(params), "info")
             end)
         end)

@@ -13,6 +13,18 @@ do -- Install lazy.nvim plugin manager.
     vim.opt.rtp:prepend(lazypath)
 end
 
+local function transparent_bg()
+    -- 透明
+    vim.cmd [[highlight Normal guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight SignColumn guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight ColorColumn guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight CursorColumn guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight CursorLineNr guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight! link WinSeparator CursorLine]]
+end
+
 -- load global configuration
 require('options-config')
 
@@ -88,7 +100,7 @@ require('lazy').setup({
     },
 
     -- File Explore
-    { 'kyazdani42/nvim-tree.lua',     config = function() require('config.nvim-tree') end },
+    { 'kyazdani42/nvim-tree.lua', config = function() require('config.nvim-tree') end },
 
     -- Tasks
     {
@@ -147,7 +159,7 @@ require('lazy').setup({
     {
         'glepnir/galaxyline.nvim',
         dependencies = {
-            'kyazdani42/nvim-web-devicons',
+            'nvim-tree/nvim-web-devicons',
             'nvim-treesitter/nvim-treesitter',
             'neovim/nvim-lspconfig',
             'nvim-telescope/telescope.nvim',
@@ -157,7 +169,25 @@ require('lazy').setup({
     'nvim-lua/lsp-status.nvim',
 
     -- Tabline
-    -- { 'nanozuki/tabby.nvim',   config = function() require('config.tabby').setup() end },
+    {
+        'seblj/nvim-tabline',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
+        config = function()
+            require('tabline').setup({
+                no_name = '[No Name]',   -- Name for buffers with no name
+                modified_icon = '',   -- Icon for showing modified buffer
+                close_icon = '',      -- Icon for closing tab with mouse
+                separator = "▌",       -- Separator icon on the left side
+                padding = 3,             -- Prefix and suffix space
+                color_all_icons = false, -- Color devicons in active and inactive tabs
+                right_separator = false, -- Show right separator on the last tab
+                show_index = true,       -- Shows the index of tab before filename
+                show_icon = true,        -- Shows the devicon
+            })
+        end
+    },
 
     -- Themes.
     {
@@ -176,19 +206,11 @@ require('lazy').setup({
     },
     {
         "rebelot/kanagawa.nvim",
-        cond = false,
+        cond = true,
         config = function()
             vim.cmd [[colorscheme kanagawa-wave]]
             vim.cmd [[highlight! link TelescopeBorder CursorLineNr ]]
-            -- 透明
-            vim.cmd [[highlight Normal guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight SignColumn guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight ColorColumn guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight CursorColumn guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight CursorLineNr guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
-            vim.cmd [[highlight! link WinSeparator CursorLine]]
+            transparent_bg()
         end,
         dependencies = {
             'nvim-telescope/telescope.nvim',
@@ -211,17 +233,16 @@ require('lazy').setup({
     },
     {
         "catppuccin/nvim",
-        cond = true,
+        cond = false,
         name = "catppuccin",
         config = function()
             vim.cmd('set termguicolors')
             vim.cmd('colorscheme catppuccin-mocha')
+            transparent()
         end
     },
     -- 'EdenEast/nightfox.nvim',
 
-    -- Icons.
-    { 'kyazdani42/nvim-web-devicons', name = "devicons" },
 
     -- Notification.
     {
@@ -240,6 +261,23 @@ require('lazy').setup({
     },
 
     -- UI
+    -- lazy.nvim
+    {
+        "folke/noice.nvim",
+        --event = "VeryLazy",
+        opts = {},
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        },
+        config = function()
+            require('config.noice').setup()
+        end
+    },
     {
         'stevearc/dressing.nvim',
     },
@@ -258,39 +296,21 @@ require('lazy').setup({
 
     -- Other.
     'tpope/vim-surround',
-    { 'ii14/neorepl.nvim', config = function() require('config.neorepl').setup() end },
+    { 'ii14/neorepl.nvim',        config = function() require('config.neorepl').setup() end },
 }, {
     root = vim.fn.stdpath('config') .. "/lazy",
     defaults = {
         lazy = false
     },
 })
--- load global configuration
+-- load global configuration.
 require('global-config')
 
--- Load autocmd configuration
+-- Load autocmd configuration.
 require('autocmd-config').setup()
+
+-- Load rpc plugin.
+require('rplugin-config').setup()
 
 -- Do key mapping.
 require('utils.keymap').apply_modules_keymap()
-
--- Load plugin
-vim.cmd [[
-if exists('g:loaded_myplugin')
-    finish
-endif
-let g:loaded_myplugin = 1
-
-function! s:RequirePlugin(host) abort
-    return jobstart([stdpath('config') . '/rplugin/myplugin/myplugin'], {'rpc': v:true})
-endfunction
-
-call remote#host#Register('my_plugin', 'x', function('s:RequirePlugin'))
-call remote#host#RegisterPlugin('my_plugin', '0', [
-    \ {'type': 'function', 'name': 'Plugtest', 'sync': 0, 'opts': {}},
-    \ {'type': 'function', 'name': 'CreateMR', 'sync': 0, 'opts': {}},
-    \ {'type': 'function', 'name': 'ListOpenedMR', 'sync': 0, 'opts': {}},
-    \ {'type': 'autocmd', 'name': 'VimEnter', 'sync': 0, 'opts': {'group': 'ExmplNvGoClientGrp', 'pattern': '*'}},
-    \ ])
-
-]]
