@@ -9,7 +9,7 @@ import (
 func (ctrl *Controller) nvimNotify(title, format string, args ...interface{}) {
 	err := ctrl.Nvim.ExecLua(`
         local arg = {...}
-        require('notify').notify(arg[2], "info", {
+        require('notify').notify(arg[2], vim.lsp.log_levels.INFO, {
             title = arg[1],
             on_open = function(win)
                 vim.api.nvim_win_set_option(win, 'wrap', true)

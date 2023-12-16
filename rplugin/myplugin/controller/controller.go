@@ -43,10 +43,11 @@ func (ctrl *Controller) Serve() error {
 	ctrl.HandleFunction(&plugin.FunctionOptions{Name: "Plugtest"}, ctrl.plugTest)
 	ctrl.HandleFunction(&plugin.FunctionOptions{Name: "CreateMR"}, ctrl.createMR)
 	ctrl.HandleFunction(&plugin.FunctionOptions{Name: "ListOpenedMR"}, ctrl.listOpenedMRs)
+	ctrl.HandleFunction(&plugin.FunctionOptions{Name: "ApproveMR"}, ctrl.approveMR)
 	return nil
 }
 
-func (ctrl *Controller) plugTest(args []string) ([]string, error) {
+func (ctrl *Controller) plugTest(args []string) (string, error) {
 	defer func() {
 		if e := recover(); e != nil {
 			notify.Alert(NeovimStr, PluginName, fmt.Sprintf("panic: %v", utils.Marshal(e)), "")
@@ -54,7 +55,7 @@ func (ctrl *Controller) plugTest(args []string) ([]string, error) {
 	}()
 	content, _ := ctrl.getCursorFunction()
 	ctrl.nvimNotify(PluginName, fmt.Sprintf("```go\n%v\n```", content))
-	return []string{`{hello = "hello"}`, "2"}, nil
+	return "2", nil
 }
 
 func (ctrl *Controller) startBackGroupJobs() {

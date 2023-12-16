@@ -22,5 +22,3 @@ require (
 	google.golang.org/protobuf v1.29.1 // indirect
 	gopkg.in/toast.v1 v1.0.0-20180812000517-0a84660828b2 // indirect
 )
-
-replace github.com/neovim/go-client => ./go-client@v1.2.1

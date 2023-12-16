@@ -1,0 +1,3 @@
+[submodule "rplugin/oxi"]
+	path = rplugin/oxi
+	url = https://github.com/panpansuannai/oxi

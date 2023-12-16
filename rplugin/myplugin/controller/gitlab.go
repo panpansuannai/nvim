@@ -3,6 +3,9 @@ package controller
 import (
 	"fmt"
 	"myplugin/utils"
+	"net/url"
+	"regexp"
+	"strconv"
 
 	"github.com/martinlindhe/notify"
 	"github.com/xanzy/go-gitlab"
@@ -72,5 +75,47 @@ func (ctrl *Controller) listOpenedMRs(args []string) (string, error) {
 		content = fmt.Sprintf("current branch %v has no MR", source)
 	}
 	ctrl.nvimNotify("List MR", content)
+	return "", nil
+}
+
+type approveMRParam struct {
+	URL string
+}
+
+var mrRegexp = regexp.MustCompile(`/([^/]+)/([^/]+)/merge_requests/(\d+)`)
+
+func (ctrl *Controller) approveMR(args []string) (string, error) {
+	defer func() {
+		if e := recover(); e != nil {
+			ctrl.nvimNotify("approve MR", fmt.Sprintf("* panic: %v", e))
+		}
+	}()
+	param := &approveMRParam{}
+	if err := utils.TransferParameter(args, param); err != nil {
+		ctrl.nvimNotify("approve MR", fmt.Sprintf("* parameter invalid: %v", err))
+		return "", err
+	}
+	u, err := url.Parse(param.URL)
+	if err != nil {
+		ctrl.nvimNotify("approve MR", fmt.Sprintf("* parse url(%s) err: %v", param.URL, err))
+		return "", err
+	}
+	var mrID, project string
+	mrMatchers := mrRegexp.FindStringSubmatch(u.Path)
+	if len(mrMatchers) == 4 {
+		project = mrMatchers[1] + "/" + mrMatchers[2]
+		mrID = mrMatchers[3]
+	}
+	if mrID == "" {
+		ctrl.nvimNotify("approve MR", fmt.Sprintf("* parse url(%s) mrID empty", param.URL))
+		return "", nil
+	}
+	mr, _ := strconv.ParseInt(mrID, 10, 64)
+	_, _, err = ctrl.gitlabCli.MergeRequestApprovals.ApproveMergeRequest(project, int(mr), &gitlab.ApproveMergeRequestOptions{})
+	if err != nil {
+		ctrl.nvimNotify("approve MR", fmt.Sprintf("* call approve mr url(%s) err: %v", param.URL, err))
+		return "", err
+	}
+	ctrl.nvimNotify("approve MR", fmt.Sprintf("* approve mr url(%s) success", param.URL))
 	return "", nil
 }
