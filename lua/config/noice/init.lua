@@ -197,6 +197,14 @@ local setup = function()
         ---@type NoiceFormatOptions
         format = {}, --- @see section on formatting
     })
+
+    -- transparent background
+    -- vim.cmd [[ highlight DiagnosticSignInfo guibg=NONE guisp=NONE]]
+    vim.cmd [[ highlight! link  NoiceCmdlinePopupBorder TelescopeBorder ]]
+    vim.cmd [[ highlight! link  NoiceCmdlinePopupBorderSearch TelescopeBorder ]]
+    vim.cmd [[ highlight! link  NoiceCmdlinePopupTitle TelescopeTitle]]
+    vim.cmd [[ highlight! link  NoiceCmdlineIcon TelescopeMultiIcon]]
+    vim.cmd [[ highlight! link  NoiceCmdlineIconSearch TelescopeMultiIcon]]
 end
 return {
     setup = setup

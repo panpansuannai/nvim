@@ -60,6 +60,14 @@ require('lazy').setup({
     -- 'fatih/vim-go',
     -- 'ray-x/go.nvim',
     -- 'ray-x/guihua.lua',
+ 
+    -- Linter
+    {
+        "mfussenegger/nvim-lint",
+        config = function()
+            require("config.nvim-lint").setup()
+        end
+    },
 
     -- Compeletion
     {
@@ -238,7 +246,7 @@ require('lazy').setup({
         config = function()
             vim.cmd('set termguicolors')
             vim.cmd('colorscheme catppuccin-mocha')
-            transparent()
+            transparent_bg()
         end
     },
     -- 'EdenEast/nightfox.nvim',
@@ -276,6 +284,7 @@ require('lazy').setup({
         },
         config = function()
             require('config.noice').setup()
+            transparent_bg()
         end
     },
     {

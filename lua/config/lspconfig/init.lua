@@ -95,7 +95,9 @@ return {
         end
 
         -- language servier configs
-        require 'lspconfig'.rust_analyzer.setup {}
+        require 'lspconfig'.rust_analyzer.setup {
+            on_attach = on_attach,
+        }
 
         require 'lspconfig'.gopls.setup {
             single_file_support = true,
@@ -115,7 +117,5 @@ return {
                 }
             }
         })
-        -- require('go').setup()
-        -- require 'lspconfig'.clangd.setup {}
     end
 }

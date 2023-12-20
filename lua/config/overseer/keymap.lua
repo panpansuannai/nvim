@@ -6,7 +6,12 @@ return {
 
         -- create mr
         vim.keymap.set('n', '<leader>or', function()
-            local overseer = require('overseer.form')
+            local repo = vim.fn.system([[git remote show -n origin | grep -m 1 -o "\w*/\w*.git"]])
+            if #repo < 5 then
+                repo = ""
+            else
+                repo = string.sub(repo, 1, -6)
+            end
             local branch = vim.fn.system('git branch --show-current')
             if branch ~= nil then
                 branch = string.gsub(branch, '\n', '')
@@ -15,11 +20,12 @@ return {
             if title ~= nil then
                 title = string.gsub(title, '\n', '')
             end
+            local overseer = require('overseer.form')
             overseer.open("*Create merge request", {
                 Repository = {
                     type = "string",
                     order = 1,
-                    default = "people/payroll_dmp",
+                    default = repo,
                 },
                 Title = {
                     type = "string",
@@ -29,7 +35,6 @@ return {
                 Desc = {
                     type = "string",
                     order = 3,
-                    -- optional = true,
                     default = "",
                 },
                 Source = {
@@ -44,7 +49,7 @@ return {
                 RemoveSource = {
                     type = "string",
                     order = 6,
-                    default = "true",
+                    default = "yes",
                 },
             }, {}, function(params)
                 if params == nil then
@@ -52,29 +57,45 @@ return {
                 end
                 local ffi = require('ffi')
                 local param = ffi.new('create_mr_param',
-                    ffi.new('char[?]', #params.Repository+1, params.Repository),
-                    ffi.new('char[?]', #params.Source+1, params.Source),
-                    ffi.new('char[?]', #params.Target+1, params.Target),
-                    ffi.new('char[?]', #params.Title+1, params.Title)
+                    ffi.new('char[?]', #params.Repository + 1, params.Repository),
+                    ffi.new('char[?]', #params.Source + 1, params.Source),
+                    ffi.new('char[?]', #params.Target + 1, params.Target),
+                    ffi.new('char[?]', #params.Title + 1, params.Title)
                 )
-                if params.RemoveSource then
+                if params.RemoveSource == "yes" then
                     param.remove_source = 1
                 end
-                --[[
-                param.project = ffi.new('char[?]', #params.Repository, params.Repository)
-                param.source = ffi.new('char[?]', #params.Source, params.Source)
-                param.target = ffi.new('char[?]', #params.Target, params.Target)
-                param.title = ffi.new('char[?]', #params.Title, params.Title)
-                if params.RemoveSource == "true" then
-                    param.remove_source = 1
-                end
-                ]]
                 vim.oxi.create_mr(param)
-                --[[
-                vim.fn.CreateMR(params.Repository, params.Title, params.Desc, params.Source, params.Target,
-                    params.RemoveSource)
-                    ]]
-                -- vim.notify(vim.inspect(params), "info")
+            end)
+        end)
+
+        -- golang staticcheck
+        vim.keymap.set('n', '<leader>os', function()
+            local filename = vim.api.nvim_buf_get_name(0)
+            local pkg = vim.fn.expand('%:p:h')
+            local overseer = require('overseer.form')
+            overseer.open("*[Golang] staticcheck", {
+                Filename = {
+                    type = "string",
+                    order = 1,
+                    default = filename,
+                },
+                Package = {
+                    type = "string",
+                    order = 2,
+                    default = pkg,
+                },
+            }, {}, function(params)
+                if params == nil then
+                    return
+                end
+                local ffi = require('ffi')
+                local p = ffi.new('golang_check_param',
+                    ffi.new('char[?]', #"oxi_check" + 1, "oxi_check"),
+                    ffi.new('char[?]', #params.Filename + 1, params.Filename),
+                    ffi.new('char[?]', #params.Package + 1, params.Package)
+                )
+                vim.oxi.go_static_check(p)
             end)
         end)
     end

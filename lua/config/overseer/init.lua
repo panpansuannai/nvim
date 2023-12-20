@@ -3,6 +3,22 @@ return {
         require('overseer').setup({
             strategy = "jobstart",
             templates = { "builtin" },
+            form = {
+                border = "rounded",
+                zindex = 40,
+                -- Dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+                -- min_X and max_X can be a single value or a list of mixed integer/float types.
+                min_width = 80,
+                max_width = 0.9,
+                width = nil,
+                min_height = 10,
+                max_height = 0.9,
+                height = nil,
+                -- Set any window options here (e.g. winhighlight)
+                win_opts = {
+                    winblend = 0,
+                },
+            },
             task_list = {
                 separator = '',
                 bindings = {
@@ -49,6 +65,8 @@ return {
                     i = {
                         ["<C-s>"] = "Submit",
                         ["<C-c>"] = "Cancel",
+                        ["<C-j>"] = "Next",
+                        ["<C-k>"] = "Prev",
                     },
                     n = {
                         ["<CR>"] = "Submit",
@@ -66,16 +84,14 @@ return {
                 bindings = {
                     i = {
                         ["<CR>"] = "NextOrSubmit",
+                        ["<C-j>"] = "Next",
+                        ["<C-k>"] = "Prev",
                         ["<C-s>"] = "Submit",
-                        ["<Tab>"] = "Next",
-                        ["<S-Tab>"] = "Prev",
                         ["<C-c>"] = "Cancel",
                     },
                     n = {
                         ["<CR>"] = "NextOrSubmit",
                         ["<C-s>"] = "Submit",
-                        ["<Tab>"] = "Next",
-                        ["<S-Tab>"] = "Prev",
                         ["q"] = "Cancel",
                         ["<Esc>"] = "Cancel",
                         ["<C-[>"] = "Cancel",

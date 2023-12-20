@@ -29,12 +29,20 @@ local setup = function()
         int remove_source;
     } create_mr_param;
 
+    typedef struct {
+        char* namespace;
+        char* filename;
+        char* package;
+    } golang_check_param;
+
 
     // methods
     void init();
-    void schedule_task();
+    void schedule_task(); // Deprecated
     void create_mr(create_mr_param);
     void approve_mr(create_mr_param);
+    void go_static_check(golang_check_param);
+    void nvim_worker(); // heart beat worker for async task
 
     // debug methods
     int ping(int);

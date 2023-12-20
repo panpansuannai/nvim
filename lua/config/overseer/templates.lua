@@ -135,5 +135,35 @@ return {
                 "on_complete_notify"
             },
         })
+        overseer.register_template({
+            name = "[Golang] Build DMP",
+            builder = function(params)
+                return {
+                    cmd = {
+                        "go"
+                    },
+                    args = {
+                        "build",
+                        "-gcflags",
+                        "all=-l -N",
+                        "-o",
+                        params.output,
+                        "./cmd"
+                    },
+                }
+            end,
+            params = {
+                output = {
+                    type = "string",
+                    name = "output",
+                    desc = "output",
+                    optional = false,
+                    default = "output/people.payroll.dmp",
+                }
+            },
+            components = {
+                "on_complete_notify"
+            },
+        })
     end
 }
