@@ -22,6 +22,10 @@ local function transparent_bg()
     vim.cmd [[highlight CursorLineNr guibg=NONE guisp=NONE]]
     vim.cmd [[highlight LineNr guibg=NONE guisp=NONE]]
     vim.cmd [[highlight CursorLine guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight DiagnosticSignInfo guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight DiagnosticSignError guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight DiagnosticSignWarn guibg=NONE guisp=NONE]]
+    vim.cmd [[highlight DiagnosticSignHint guibg=NONE guisp=NONE]]
     vim.cmd [[highlight! link WinSeparator CursorLine]]
 end
 
@@ -37,7 +41,14 @@ require('lazy').setup({
             require('utils.keymap').register_module(require('config.lspconfig.keymap'))
         end
     },
-    { 'folke/trouble.nvim',      config = function() require('config.trouble') end },
+    {
+        'folke/trouble.nvim',
+        config = function() require('config.trouble') end,
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'nvim-telescope/telescope.nvim',
+        }
+    },
     { 'kosayoda/nvim-lightbulb', config = function() require('config.nvim-lightbulb') end },
     {
         'weilbith/nvim-code-action-menu',
@@ -47,20 +58,8 @@ require('lazy').setup({
             require('utils.keymap').register_module(mod)
         end
     },
-    --[[
-    {
-        'mrded/nvim-lsp-notify',
-        dependencies = { 'rcarriga/nvim-notify' },
-        config = function()
-            require('lsp-notify').setup({})
-        end
-    },
-    ]]
-    { 'folke/neodev.nvim',               config = function() require('neodev').setup() end },
-    -- 'fatih/vim-go',
-    -- 'ray-x/go.nvim',
-    -- 'ray-x/guihua.lua',
- 
+    { 'folke/neodev.nvim',       config = function() require('neodev').setup() end },
+
     -- Linter
     {
         "mfussenegger/nvim-lint",
@@ -200,25 +199,23 @@ require('lazy').setup({
     -- Themes.
     {
         'JoosepAlviste/palenightfall.nvim',
-        cond = false,
+        cond = true,
         config = function()
-            vim.cmd [[colorscheme palenightfall]]
+            -- vim.cmd [[colorscheme palenightfall]]
         end
     },
     {
         'folke/tokyonight.nvim',
-        cond = false,
+        cond = true,
         config = function()
-            vim.cmd [[colorscheme tokyonight-night]]
+            -- vim.cmd [[colorscheme tokyonight-night]]
         end
     },
     {
         "rebelot/kanagawa.nvim",
         cond = true,
         config = function()
-            vim.cmd [[colorscheme kanagawa-wave]]
-            vim.cmd [[highlight! link TelescopeBorder CursorLineNr ]]
-            transparent_bg()
+            require('config.themes.kanagawa').setup()
         end,
         dependencies = {
             'nvim-telescope/telescope.nvim',
@@ -263,13 +260,8 @@ require('lazy').setup({
     },
 
     -- Indent.
-    {
-        -- 有展示问题
-        --"lukas-reineke/indent-blankline.nvim", config = function() require('config.indent-blankline').setup() end
-    },
 
     -- UI
-    -- lazy.nvim
     {
         "folke/noice.nvim",
         --event = "VeryLazy",
@@ -285,6 +277,7 @@ require('lazy').setup({
         config = function()
             require('config.noice').setup()
             transparent_bg()
+            require('utils.keymap').register_module(require('config.noice'))
         end
     },
     {
@@ -299,7 +292,7 @@ require('lazy').setup({
         'brenoprata10/nvim-highlight-colors',
         config = function()
             require('nvim-highlight-colors').setup()
-            vim.api.nvim_set_option('t_Co', '256')
+            --vim.api.nvim_set_option('t_Co', '256')
         end
     },
 

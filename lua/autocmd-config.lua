@@ -1,8 +1,5 @@
 return {
     setup = function()
-        --[[  group
-        local group = vim.api.nvim_create_augroup("panpan", {})
-        ]]
         --[[
         vim.api.nvim_create_autocmd({ "CursorHold" }, {
             group = group,
@@ -16,7 +13,6 @@ return {
                     vim.lsp.buf.hover()
                 end
             end,
-        })
-        ]]
+        })]]
     end
 }

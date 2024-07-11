@@ -50,8 +50,16 @@ return {
 
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        vim.keymap.set('n', '<leader>lf',
-            '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+        vim.keymap.set('n', '<leader>lf', function()
+            local opt = {
+                formatting_options = {
+                    tabSize = 8,
+                    insertSpaces = true,
+                    trimTrailingWhitespace = true,
+                }
+            }
+            vim.lsp.buf.format(opt)
+        end, opts)
         vim.keymap.set('n', '<leader>lr',
             '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
         vim.keymap.set('n', 'H',

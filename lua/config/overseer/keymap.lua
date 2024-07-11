@@ -55,8 +55,9 @@ return {
                 if params == nil then
                     return
                 end
+                --[[
                 local ffi = require('ffi')
-                local param = ffi.new('create_mr_param',
+                local param = ffi.new('mr_param',
                     ffi.new('char[?]', #params.Repository + 1, params.Repository),
                     ffi.new('char[?]', #params.Source + 1, params.Source),
                     ffi.new('char[?]', #params.Target + 1, params.Target),
@@ -66,12 +67,21 @@ return {
                     param.remove_source = 1
                 end
                 vim.oxi.create_mr(param)
+                    ]]
+                vim.fn.CreateMR({
+                    project = params.Repository,
+                    title = params.Title,
+                    desc = "",
+                    source = params.Source,
+                    target = params.Target,
+                })
             end)
         end)
 
         -- golang staticcheck
         vim.keymap.set('n', '<leader>os', function()
             local filename = vim.api.nvim_buf_get_name(0)
+            local bufid = vim.api.nvim_get_current_buf()
             local pkg = vim.fn.expand('%:p:h')
             local overseer = require('overseer.form')
             overseer.open("*[Golang] staticcheck", {
@@ -95,6 +105,22 @@ return {
                     ffi.new('char[?]', #params.Filename + 1, params.Filename),
                     ffi.new('char[?]', #params.Package + 1, params.Package)
                 )
+                local group = vim.api.nvim_create_augroup("staticcheck", {})
+                if #vim.api.nvim_get_autocmds({ group = group, buffer = bufid }) == 0 then
+                    vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                        group = group,
+                        buffer = bufid,
+                        callback = function()
+                            local ffi = require('ffi')
+                            local p = ffi.new('golang_check_param',
+                                ffi.new('char[?]', #"oxi_check" + 1, "oxi_check"),
+                                ffi.new('char[?]', #params.Filename + 1, params.Filename),
+                                ffi.new('char[?]', #params.Package + 1, params.Package)
+                            )
+                            vim.oxi.go_static_check(p)
+                        end,
+                    })
+                end
                 vim.oxi.go_static_check(p)
             end)
         end)

@@ -1,3 +1,6 @@
+local constants = require('constants')
+vim.opt.rtp:prepend(constants.rplugin_dir)
+
 -- highlight the yanked text
 vim.cmd([[
 augroup LuaHighlight
@@ -37,6 +40,60 @@ vim.keymap.set('n', '<leader>tm', function()
     })
 end)
 
+-- navigator
+-- goto next function
+vim.keymap.set('n', "<leader>fj", function()
+    local win = vim.api.nvim_get_current_win()
+    local pos = vim.api.nvim_win_get_cursor(win)
+    local found = false
+    require('utils.treesitter').iter_func(function(n)
+        if found then
+            return
+        end
+        local r, c = n:range()
+        if r > pos[1] then
+            vim.api.nvim_win_set_cursor(win, { r + 1, c })
+            found = true
+        end
+    end)
+end)
+
+-- goto previous function
+vim.keymap.set('n', "<leader>fk", function()
+    local win = vim.api.nvim_get_current_win()
+    -- (1, 0)-index
+    local pos = vim.api.nvim_win_get_cursor(win)
+    local last_pos = { 1, 0 }
+    require('utils.treesitter').iter_func(function(n)
+        -- (0, 0)-index
+        local r, c = n:range()
+        -- convert to 1-index
+        r = r + 1
+        if r < pos[1] then
+            last_pos = { r, c }
+        end
+    end)
+    vim.api.nvim_win_set_cursor(win, last_pos)
+end)
+--[[
+vim.keymap.set('n', 'j', function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local ism = vim.api.nvim_exec2("!./macism", { output = true })["output"]
+    if ism == "com.apple.keylayout.ABC" then
+        vim.api.nvim_exec2("!./macism com.apple.keylayout.ABC", {})
+    end
+    vim.api.nvim_win_set_cursor(0, { pos[1] + 1, pos[2] })
+end)
+
+vim.keymap.set('n', 'k', function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local ism = vim.api.nvim_exec2("!./macism", { output = true })["output"]
+    if ism == "com.apple.keylayout.ABC" then
+        vim.api.nvim_exec2("!./macism com.apple.keylayout.ABC", {})
+    end
+    vim.api.nvim_win_set_cursor(0, { pos[1] - 1, pos[2] })
+end)
+]]
 -- window
 vim.keymap.set('n', '<leader>wv', '<C-w>v<C-w>l')
 vim.keymap.set('n', '<leader>ws', '<C-w>s<C-w>j')
@@ -50,8 +107,15 @@ vim.keymap.set('n', '<leader>w,', '5<C-w><')
 vim.keymap.set('n', '<leader>w.', '5<C-w>>')
 
 -- misc
-vim.keymap.set('n', '<C-l>', '<cmd>nohlsearch<cr>')
-vim.keymap.set('n', '<leader>ev', '<cmd>edit $MYVIMRC<cr>')
+vim.keymap.set('n', '<C-l>', function()
+    vim.api.nvim_command("nohlsearch")
+end)
+
+vim.api.nvim_set_option_value("ignorecase", true, {})
+vim.keymap.set('n', '<leader>ev', function()
+    vim.cmd [[edit $MYVIMRC]]
+    require('luv').chdir(require('constants').conf_dir)
+end)
 vim.keymap.set('n', '<leader>qq', '<cmd>wqa!<cr>')
 vim.keymap.set('n', "<leader>[", '^')
 vim.keymap.set('n', "<leader>]", '$')
@@ -95,87 +159,6 @@ local function notice_to_relax()
 end
 notice_to_relax()
 
-vim.keymap.set('n', "<leader>zb", function()
-    local var_decl_node = require('utils.treesitter').find_nearest_parent(vim.treesitter.get_node(),
-        { "assignment_statement", "short_var_declaration" })
-    if var_decl_node == nil then
-        return
-    end
-    local expr_list_node = var_decl_node:named_child(0)
-    local err_var_name = nil
-    for node, _ in expr_list_node:iter_children() do
-        local name = vim.treesitter.get_node_text(node, 0)
-        if string.match(string.lower(name), "err") ~= nil then
-            err_var_name = name
-            break
-        end
-    end
-    if err_var_name == nil then
-        vim.notify("not found variable named like err", vim.log.levels.WARN)
-        return
-    end
-    -- find function call
-    local err_func_name = nil
-    local err_func_query = vim.treesitter.query.parse('go',
-        [[([(call_expression function: (identifier) @name) (selector_expression field: (field_identifier) @name)])]])
-    for _, node, _ in err_func_query:iter_captures(var_decl_node, 0) do
-        err_func_name = vim.treesitter.get_node_text(node, 0)
-        break
-    end
-    if err_func_name == nil then
-        vim.notify("not found function that throw error", vim.log.levels.WARN)
-        return
-    end
-    -- find function
-    local function_node = require('utils.treesitter').find_nearest_parent(var_decl_node,
-        { "function_declaration", "method_declaration" })
-    if function_node == nil then
-        vim.notify("not in function", vim.log.levels.WARN)
-        return
-    end
-    local fname = nil
-    local is_method = false
-    local reciever_type = nil
-    local query = vim.treesitter.query.parse('go', [[
-        ([(method_declaration name:(field_identifier) @mname)
-        (function_declaration name:(identifier) @fname)])
-    ]])
-    for id, node, _ in query:iter_captures(function_node, 0) do
-        fname = vim.treesitter.get_node_text(node, 0, {})
-        if query.captures[id] == "mname" then
-            is_method = true
-        end
-        break
-    end
-    if fname == nil then
-        vim.notify("not found function name", vim.log.levels.WARN)
-        return
-    end
-    if is_method then
-        -- get reciever type
-        local reciever_node = function_node:named_child(0)
-        local type_query = vim.treesitter.query.parse('go', [[ ((type_identifier) @type) ]])
-        for _, node, _ in type_query:iter_captures(reciever_node, 0) do
-            reciever_type = vim.treesitter.get_node_text(node, 0)
-        end
-    end
-    local log_msg = ""
-    if is_method and reciever_type ~= nil then
-        log_msg = log_msg .. "[" .. reciever_type .. "] "
-    end
-    log_msg = log_msg .. fname .. " " .. err_func_name .. " error: %v"
-    local _, _, row, _ = var_decl_node:range(false)
-    vim.api.nvim_buf_set_lines(0, row+1, row+1, false, {
-        "if " .. err_var_name .. " != nil {",
-        [[logger.Error(ctx, "]] .. log_msg .. [[", ]] .. err_var_name .. [[ )]],
-        "}",
-    })
-    vim.lsp.buf.format()
-end)
-
-vim.keymap.set('n', "<leader>zl", function()
-    vim.fn.Hello()
-end)
 
 -- 测试loading
 vim.keymap.set('n', "<leader>zc", function()

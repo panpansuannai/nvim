@@ -1,40 +1,82 @@
-  require("trouble").setup {
+require("trouble").setup {
     position = "bottom", -- position of the list can be: bottom, top, left, right
-    height = 6, -- height of the trouble list when position is top or bottom
-    width = 50, -- width of the list when position is left or right
-    icons = true, -- use devicons for filenames
+    height = 6,          -- height of the trouble list when position is top or bottom
+    width = 50,          -- width of the list when position is left or right
+    icons = {
+        indent        = {
+            top         = "│ ",
+            middle      = "├╴",
+            last        = "└╴",
+            -- last          = "-╴",
+            -- last       = "╰╴", -- rounded
+            fold_open   = " ",
+            fold_closed = " ",
+            ws          = "  ",
+        },
+        folder_closed = " ",
+        folder_open   = " ",
+        kinds         = {
+            Array         = " ",
+            Boolean       = "󰨙 ",
+            Class         = " ",
+            Constant      = "󰏿 ",
+            Constructor   = " ",
+            Enum          = " ",
+            EnumMember    = " ",
+            Event         = " ",
+            Field         = " ",
+            File          = " ",
+            Function      = "󰊕 ",
+            Interface     = " ",
+            Key           = " ",
+            Method        = "󰊕 ",
+            Module        = " ",
+            Namespace     = "󰦮 ",
+            Null          = " ",
+            Number        = "󰎠 ",
+            Object        = " ",
+            Operator      = " ",
+            Package       = " ",
+            Property      = " ",
+            String        = " ",
+            Struct        = "󰆼 ",
+            TypeParameter = " ",
+            Variable      = "󰀫 ",
+        },
+    },
     mode = "lsp_references", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
-    fold_open = "", -- icon used for open folds
-    fold_closed = "", -- icon used for closed folds
-    group = true, -- group results by file
-    padding = true, -- add an extra new line on top of the list
-    action_keys = { -- key mappings for actions in the trouble list
+    fold_open = "",       -- icon used for open folds
+    fold_closed = "",     -- icon used for closed folds
+    group = true,            -- group results by file
+    padding = true,          -- add an extra new line on top of the list
+    action_keys = {
+        -- key mappings for actions in the trouble list
         -- map to {} to remove a mapping, for example:
         -- close = {},
-        close = "q", -- close the list
-        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-        refresh = "r", -- manually refresh
-        jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
-        open_split = { "<c-x>" }, -- open buffer in new split
-        open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-        open_tab = { "t" }, -- open buffer in new tab
-        jump_close = {"o"}, -- jump to the diagnostic and close the list
-        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-        toggle_preview = "P", -- toggle auto_preview
-        hover = "K", -- opens a small popup with the full multiline message
-        preview = "p", -- preview the diagnostic location
-        close_folds = {"zM", "zm"}, -- close all folds
-        open_folds = {"zR", "zr"}, -- open all folds
-        toggle_fold = {"zA", "za"}, -- toggle fold of current file
-        previous = "k", -- preview item
-        next = "j" -- next item
+        close = "q",                   -- close the list
+        cancel = "<esc>",              -- cancel the preview and get back to your last window / buffer / cursor
+        refresh = "r",                 -- manually refresh
+        jump = { "<cr>", "<tab>" },    -- jump to the diagnostic or open / close folds
+        open_split = { "<c-x>" },      -- open buffer in new split
+        open_vsplit = { "<c-v>" },     -- open buffer in new vsplit
+        open_tab = { "t" },            -- open buffer in new tab
+        jump_close = { "o" },          -- jump to the diagnostic and close the list
+        toggle_mode = "m",             -- toggle between "workspace" and "document" diagnostics mode
+        toggle_preview = "P",          -- toggle auto_preview
+        hover = "K",                   -- opens a small popup with the full multiline message
+        preview = "p",                 -- preview the diagnostic location
+        close_folds = { "zM", "zm" },  -- close all folds
+        open_folds = { "zR", "zr" },   -- open all folds
+        toggle_fold = { "zA", "za" },  -- toggle fold of current file
+        previous = "k",                -- preview item
+        next = "j"                     -- next item
     },
-    indent_lines = true, -- add an indent guide below the fold icons
-    auto_open = false, -- automatically open the list when you have diagnostics
-    auto_close = true, -- automatically close the list when you have no diagnostics
-    auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
-    auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = {"lsp_definitions"}, -- for the given modes, automatically jump if there is only a single result
+    indent_lines = true,               -- add an indent guide below the fold icons
+    auto_open = false,                 -- automatically open the list when you have diagnostics
+    auto_close = true,                 -- automatically close the list when you have no diagnostics
+    auto_preview = true,               -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
+    auto_fold = false,                 -- automatically fold a file trouble list at creation
+    auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
     signs = {
         -- icons / text used for a diagnostic
         error = "",
@@ -47,5 +89,9 @@
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
-  }
-vim.keymap.set('n', 'dl', '<cmd>TroubleToggle document_diagnostics<cr>', { unique = true})
+}
+vim.keymap.set('n', 'dl',
+    '<cmd>Trouble diagnostics toggle filter = {buf=0, severity=vim.diagnostic.severity.ERROR} focus=true<cr>',
+    { unique = true })
+vim.keymap.set('n', 'di', '<cmd>Trouble lsp_incoming_calls toggle focus=true<cr>', { unique = true })
+vim.keymap.set('n', 'do', '<cmd>Trouble lsp_outcoming_calls toggle focus=true<cr>', { unique = true })
