@@ -348,3 +348,6 @@ local function overseer_register_template()
     })
 end
 overseer_register_template()
+
+vim.lsp.enable('golangcilsp')
+vim.lsp.enable('gopls')

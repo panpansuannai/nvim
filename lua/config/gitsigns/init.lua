@@ -52,9 +52,6 @@ M.setup = function()
             row = 0,
             col = 1
         },
-        yadm                         = {
-            enable = false
-        },
     }
     -- require('config.gitsigns.keymap')
 end

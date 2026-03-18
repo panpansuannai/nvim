@@ -250,14 +250,14 @@ table.insert(gls.left, {
             Lsp = {
                 provider = function()
                     local lsp_name = 'null'
-                    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+                    local clients = vim.lsp.get_clients({ bufnr = 0 })
                     if vim.tbl_count(clients) > 0 then
                         lsp_name = clients[1].name
                     end
                     return '「' .. lsp_name .. '」'
                 end,
                 condition = function()
-                    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+                    local clients = vim.lsp.get_clients({ bufnr = 0 })
                     return vim.tbl_count(clients) > 0
                 end,
                 -- seperator = " ",

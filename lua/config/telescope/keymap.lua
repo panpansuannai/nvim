@@ -23,7 +23,7 @@ return {
             { unique = true })
         vim.keymap.set('n', 'gd', function() require('telescope.builtin').lsp_definitions() end, { unique = true })
         vim.keymap.set('n', 'gD', function()
-            if vim.tbl_count(vim.lsp.get_active_clients({ bufnr = 0 })) == 0 then
+            if vim.tbl_count(vim.lsp.get_clients({ bufnr = 0 })) == 0 then
                 vim.notify("Lsp not ready!", vim.log.levels.WARN, {
                     title = "WARN: go to definitions",
                 })
